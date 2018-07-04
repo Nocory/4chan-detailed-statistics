@@ -1,18 +1,5 @@
-const fs = require("fs")
+const ss = require('simple-statistics')
 
-if (!fs.existsSync("db_get")){
-	fs.mkdirSync("db_get")
-}
+const cor = ss.sampleCorrelation([1,2,3,4,5],[2,3,4,5,6])
 
-const files = fs.readdirSync("db_get")
-
-console.log(files)
-
-const axios = require("axios")
-
-const main = async () => {
-	const allBoards = require("./config.js").boards
-	console.log(allBoards)
-}
-
-main()
+console.log(cor)

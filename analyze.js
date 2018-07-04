@@ -100,44 +100,58 @@ const main = async () => {
 
 		result[board] = {
 			avgPostsPerDay: chanstatsData[board].avgPostsPerDay,
-			dailyTopPostsPerMinute: chanstatsData[board].topPPM,
+			dailyPeakPostsPerMinute: chanstatsData[board].topPPM,
 			imageRatio: ss.sum(boardData.images) / ss.sum(boardData.repliesInThread),
 			repliesWithTextRatio: ss.sum(boardData.repliesWithText) / ss.sum(boardData.repliesInThread),
+
+			avgRepliesPerThread: ss.mean(boardData.repliesInThread),
+			repliesPerThreadStandardDeviation: ss.standardDeviation(boardData.repliesInThread),
+			repliesPerThread33thPercentile: ss.quantile(boardData.repliesInThread,0.33),
+			repliesPerThread50thPercentile: ss.quantile(boardData.repliesInThread,0.50),
+			repliesPerThread67thPercentile: ss.quantile(boardData.repliesInThread,0.67),
 
 			avgRepliesPerMinutePerThread: ss.mean(boardData.repliesPerMinute),
 			repliesPerMinutePerThreadStandardDeviation: ss.standardDeviation(boardData.repliesPerMinute),
 			repliesPerMinutePerThread33thPercentile: ss.quantile(boardData.repliesPerMinute,0.33),
+			repliesPerMinutePerThread50thPercentile: ss.quantile(boardData.repliesPerMinute,0.50),
 			repliesPerMinutePerThread67thPercentile: ss.quantile(boardData.repliesPerMinute,0.67),
 
 			avgPostLengthByPost: ss.mean(boardData.charactersByPost),
 			postLengthByPostStandardDeviation: ss.standardDeviation(boardData.charactersByPost),
 			postLengthByPost33thPercentile: ss.quantile(boardData.charactersByPost,0.33),
+			postLengthByPost50thPercentile: ss.quantile(boardData.charactersByPost,0.50),
 			postLengthByPost67thPercentile: ss.quantile(boardData.charactersByPost,0.67),
 
 			avgPostLengthByThread: ss.mean(boardData.charactersByThread),
 			postLengthByThreadStandardDeviation: ss.standardDeviation(boardData.charactersByThread),
 			postLengthByThread33thPercentile: ss.quantile(boardData.charactersByThread,0.33),
+			postLengthByThread50thPercentile: ss.quantile(boardData.charactersByThread,0.50),
 			postLengthByThread67thPercentile: ss.quantile(boardData.charactersByThread,0.67),
 
 			avgPostersPerThread: ss.mean(boardData.postersPerThread),
 			postersPerThreadStandardDeviation: ss.standardDeviation(boardData.postersPerThread),
 			postersPerThread33thPercentile: ss.quantile(boardData.postersPerThread,0.33),
+			postersPerThread50thPercentile: ss.quantile(boardData.postersPerThread,0.50),
 			postersPerThread67thPercentile: ss.quantile(boardData.postersPerThread,0.67),
 
 			avgPostsByPoster: ss.mean(boardData.postsByPoster),
 			postsByPosterStandardDeviation: ss.standardDeviation(boardData.postsByPoster),
 			postsByPoster33thPercentile: ss.quantile(boardData.postsByPoster,0.33),
+			postsByPoster50thPercentile: ss.quantile(boardData.postsByPoster,0.50),
 			postsByPoster67thPercentile: ss.quantile(boardData.postsByPoster,0.67),
 
 			avgThreadAgeHours: ss.mean(boardData.threadAgeHours),
 			threadAgeHoursStandardDeviation: ss.standardDeviation(boardData.threadAgeHours),
 			threadAgeHours33thPercentile: ss.quantile(boardData.threadAgeHours,0.33),
+			threadAgeHours50thPercentile: ss.quantile(boardData.threadAgeHours,0.50),
 			threadAgeHours67thPercentile: ss.quantile(boardData.threadAgeHours,0.67),
 		}
+		console.log(`/${board}/ analysis done`)
 	}
 	resultDB.setState(result)
 	resultDB.write()
 
+	/*
 	const expResult = {}
 
 	for(board in analysis){
@@ -145,8 +159,8 @@ const main = async () => {
 
 		expResult[board] = {
 			imageRatio: ss.sum(boardData.images) / ss.sum(boardData.repliesInThread),
-			postLengthByPost50thPercentile: ss.quantile(boardData.charactersByPost,0.50),
 			postLengthByPost33thPercentile: ss.quantile(boardData.charactersByPost,0.33),
+			postLengthByPost50thPercentile: ss.quantile(boardData.charactersByPost,0.50),
 			postLengthByPost67thPercentile: ss.quantile(boardData.charactersByPost,0.67),
 		}
 
@@ -157,7 +171,8 @@ const main = async () => {
 	experimentalDB.setState(expResult)
 	experimentalDB.write()
 
-	console.log(result)
+	//console.log(result)
+	*/
 }
 
 main()
