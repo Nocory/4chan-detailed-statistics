@@ -1,178 +1,26 @@
-const axios = require("axios")
-
 const fs = require('fs')
-if (!fs.existsSync("db_analysis")){
-	fs.mkdirSync("db_analysis")
-}
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-const extractedDataDB = low(new FileSync('db_analysis/extractedData.json'))
-const resultDB = low(new FileSync('db_analysis/result.json'))
-const experimentalDB = low(new FileSync('db_analysis/experimental.json'))
+if (!fs.existsSync("analysis")) fs.mkdirSync("analysis")
+if (!fs.existsSync("rawData")) fs.mkdirSync("rawData")
 
-const Entities = require('html-entities').Html5Entities
-const entities = new Entities()
+const extractData = require("./src/extractData.js")
+const analyzeMeta = require("./src/analyzeMeta.js")
+const analyzeText = require("./src/textAnalysis.js")
 
-
-const main = async () => {
-	const analysis = {}
-	const allBoards = require("./config.js").boards
-  
-	for(let board of allBoards){
-		if(!fs.existsSync(`db_get/${board}.json`)) continue
-		const db_threads = low(new FileSync(`db_get/${board}.json`)).value()
-		
-		analysis[board] = {
-			threads: 0,
-			repliesInThread: [],
-			repliesWithText: [],
-			images: [],
-			charactersByPost: [],
-			charactersByThread: [],
-			threadAgeHours: [],
-			uniqueIPs: [], // not 'actually' unique IPs, just the sum of the unique posters per thread
-      
-			repliesPerMinute: [],
-			avgPostLengthByPost: [],
-			avgPostLengthByThread: [],
-			imageRatio: [],
-			avgThreadAgeHours: [],
-			postersPerThread: [],
-			postsByPoster: [], // per thread
-		}
-		for(let threadNum in db_threads){
-			//console.log(board,threadNum)
-			const thread = db_threads[threadNum]
-			const OP = thread.posts[0]
-			if(OP.closed || OP.sticky || thread.posts.length == 1) continue // remove 
-			const threadAge = thread.posts[thread.posts.length - 1].time - OP.time
-			/*
-			if(OP.sticky){
-				threadAge = thread.posts[thread.posts.length - 1].time - thread.posts[1].time
-      }
-      */
-      
-			analysis[board].threads++
-			analysis[board].repliesInThread.push(OP.replies)
-			analysis[board].images.push(OP.images)
-
-			// Check length of posts and differentiate between charsByPost and charsByThread 
-			let newCharacters = 0
-			let repliesWithText = 0
-			for(let i = 1; i < thread.posts.length; i++){ // skip the OP post
-				const post = thread.posts[i]
-				if(!post.com) post.com = ""
-				if(board == "p") post.com = post.com.replace(/<span class="abbr">.+<\/table>/gms,"") //removes EXIF text from /p/ posts
-				post.com = post.com.replace(/<a.*?<\/a>|<br>/gm," ") //replace post-links and linebreaks with a space
-				post.com = post.com.replace(/<.*?>/gm,"") //remove any other HTML tags; greentext-HTML, /g/ [code], etc., but its text-content is kept
-				post.com = entities.decode(post.com) //convert html entities to actual characters: "&gt;" becomes ">"
-				post.com = post.com.trim() //remove whitespace from start and end
-				if(post.com){
-					newCharacters += post.com.length
-					repliesWithText++
-				}
-				//if(board == "p") console.log(post.com)
-				analysis[board].charactersByPost.push(post.com.length)
-			}
-			analysis[board].charactersByThread.push(newCharacters / thread.posts.length)
-			analysis[board].repliesWithText.push(repliesWithText)
-
-			analysis[board].threadAgeHours.push(threadAge / 3600)
-			analysis[board].repliesPerMinute.push(OP.replies / (threadAge / 60))
-			analysis[board].postersPerThread.push(OP.unique_ips)
-			analysis[board].postsByPoster.push((OP.replies + 1) / OP.unique_ips)
-		}
-		console.log(`/${board}/ extraction done`)
-	}
-	extractedDataDB.setState(analysis)
-	extractedDataDB.write()
-
-	const ss = require('simple-statistics')
-
-	const result = {}
-
-	console.log("Fetching 4stats board data . . .")
-	const chanstatsData = (await axios.get("https://api.4stats.io/allBoardStats")).data
-	console.log("Done")
-
-	for(board in analysis){
-		const boardData = analysis[board]
-
-		result[board] = {
-			avgPostsPerDay: chanstatsData[board].avgPostsPerDay,
-			dailyPeakPostsPerMinute: chanstatsData[board].topPPM,
-			imageRatio: ss.sum(boardData.images) / ss.sum(boardData.repliesInThread),
-			repliesWithTextRatio: ss.sum(boardData.repliesWithText) / ss.sum(boardData.repliesInThread),
-
-			avgRepliesPerThread: ss.mean(boardData.repliesInThread),
-			repliesPerThreadStandardDeviation: ss.standardDeviation(boardData.repliesInThread),
-			repliesPerThread33thPercentile: ss.quantile(boardData.repliesInThread,0.33),
-			repliesPerThread50thPercentile: ss.quantile(boardData.repliesInThread,0.50),
-			repliesPerThread67thPercentile: ss.quantile(boardData.repliesInThread,0.67),
-
-			avgRepliesPerMinutePerThread: ss.mean(boardData.repliesPerMinute),
-			repliesPerMinutePerThreadStandardDeviation: ss.standardDeviation(boardData.repliesPerMinute),
-			repliesPerMinutePerThread33thPercentile: ss.quantile(boardData.repliesPerMinute,0.33),
-			repliesPerMinutePerThread50thPercentile: ss.quantile(boardData.repliesPerMinute,0.50),
-			repliesPerMinutePerThread67thPercentile: ss.quantile(boardData.repliesPerMinute,0.67),
-
-			avgPostLengthByPost: ss.mean(boardData.charactersByPost),
-			postLengthByPostStandardDeviation: ss.standardDeviation(boardData.charactersByPost),
-			postLengthByPost33thPercentile: ss.quantile(boardData.charactersByPost,0.33),
-			postLengthByPost50thPercentile: ss.quantile(boardData.charactersByPost,0.50),
-			postLengthByPost67thPercentile: ss.quantile(boardData.charactersByPost,0.67),
-
-			avgPostLengthByThread: ss.mean(boardData.charactersByThread),
-			postLengthByThreadStandardDeviation: ss.standardDeviation(boardData.charactersByThread),
-			postLengthByThread33thPercentile: ss.quantile(boardData.charactersByThread,0.33),
-			postLengthByThread50thPercentile: ss.quantile(boardData.charactersByThread,0.50),
-			postLengthByThread67thPercentile: ss.quantile(boardData.charactersByThread,0.67),
-
-			avgPostersPerThread: ss.mean(boardData.postersPerThread),
-			postersPerThreadStandardDeviation: ss.standardDeviation(boardData.postersPerThread),
-			postersPerThread33thPercentile: ss.quantile(boardData.postersPerThread,0.33),
-			postersPerThread50thPercentile: ss.quantile(boardData.postersPerThread,0.50),
-			postersPerThread67thPercentile: ss.quantile(boardData.postersPerThread,0.67),
-
-			avgPostsByPoster: ss.mean(boardData.postsByPoster),
-			postsByPosterStandardDeviation: ss.standardDeviation(boardData.postsByPoster),
-			postsByPoster33thPercentile: ss.quantile(boardData.postsByPoster,0.33),
-			postsByPoster50thPercentile: ss.quantile(boardData.postsByPoster,0.50),
-			postsByPoster67thPercentile: ss.quantile(boardData.postsByPoster,0.67),
-
-			avgThreadAgeHours: ss.mean(boardData.threadAgeHours),
-			threadAgeHoursStandardDeviation: ss.standardDeviation(boardData.threadAgeHours),
-			threadAgeHours33thPercentile: ss.quantile(boardData.threadAgeHours,0.33),
-			threadAgeHours50thPercentile: ss.quantile(boardData.threadAgeHours,0.50),
-			threadAgeHours67thPercentile: ss.quantile(boardData.threadAgeHours,0.67),
-		}
-		console.log(`/${board}/ analysis done`)
-	}
-	resultDB.setState(result)
-	resultDB.write()
-
-	/*
-	const expResult = {}
-
-	for(board in analysis){
-		const boardData = analysis[board]
-
-		expResult[board] = {
-			imageRatio: ss.sum(boardData.images) / ss.sum(boardData.repliesInThread),
-			postLengthByPost33thPercentile: ss.quantile(boardData.charactersByPost,0.33),
-			postLengthByPost50thPercentile: ss.quantile(boardData.charactersByPost,0.50),
-			postLengthByPost67thPercentile: ss.quantile(boardData.charactersByPost,0.67),
-		}
-
-		expResult[board].botErr = expResult[board].postLengthByPost50thPercentile - expResult[board].postLengthByPost33thPercentile
-		expResult[board].topErr = expResult[board].postLengthByPost67thPercentile - expResult[board].postLengthByPost50thPercentile
-	}
-
-	experimentalDB.setState(expResult)
-	experimentalDB.write()
-
-	//console.log(result)
-	*/
+const OPTIONS = {
+	"--only": ""
 }
 
-main()
+const main = async (only = OPTIONS["--only"]) => {
+	if(!only || only == "extractData") await extractData()
+	if(!only || only == "analyzeMeta") await analyzeMeta()
+	if(!only || only == "analyzeText") await analyzeText()
+}
+
+if(require.main === module){
+	for(let i = 2; i < process.argv.length; i+=2){
+		OPTIONS[process.argv[i]] = process.argv[i+1]
+	}
+	main()
+}
+
+module.exports = main

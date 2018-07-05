@@ -1,5 +1,20 @@
-const ss = require('simple-statistics')
+const fs = require("fs")
 
-const cor = ss.sampleCorrelation([1,2,3,4,5],[2,3,4,5,6])
+const allBoards = require("./src/config.js").boards
 
-console.log(cor)
+let oldestBoard = "3"
+let oldestTime = new Date()
+
+for(let board of allBoards){
+	const file = `rawData/${board}.json`
+	if(!fs.existsSync(file)) continue
+	const stats = fs.statSync(file)
+	//console.log(stats)
+	if(stats.mtime < oldestTime){
+		oldestBoard = board
+		oldestTime = stats.mtime
+	}
+}
+
+console.log(oldestBoard)
+console.log(oldestTime)
