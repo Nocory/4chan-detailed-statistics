@@ -4,16 +4,38 @@ if (!fs.existsSync("rawData")) fs.mkdirSync("rawData")
 
 const extractData = require("./src/extractData.js")
 const analyzeMeta = require("./src/analyzeMeta.js")
-const analyzeText = require("./src/textAnalysis.js")
+const analyzeText = require("./src/analyzeText")
+
+const {io} = require("./src/server")
 
 const OPTIONS = {
-	"--only": ""
+	"--task": null,
+	"--board": null
 }
 
-const main = async (only = OPTIONS["--only"]) => {
-	if(!only || only == "extractData") await extractData()
-	if(!only || only == "analyzeMeta") await analyzeMeta()
-	if(!only || only == "analyzeText") await analyzeText()
+const main = async (board = OPTIONS["--board"],task = OPTIONS["--task"]) => {
+	if(task == "all") task = ""
+	if(board == "all"){
+		const allBoards = require("./src/config").boards
+		for(board of allBoards){
+			if(!task || task == "extractData") await extractData(board)
+			if(!task || task == "analyzeText") await analyzeText(board)
+			if(!task || task == "analyzeMeta") await analyzeMeta(board)
+		}
+	}else{
+		let snapshotMetaAnalysis = null
+		let snapshotTextAnalysis = null
+		if(!task || task == "extractData") await extractData(board)
+		if(!task || task == "analyzeText") snapshotTextAnalysis = await analyzeText(board)
+		if(!task || task == "analyzeMeta") snapshotMetaAnalysis = await analyzeMeta(board)
+		if(snapshotMetaAnalysis && snapshotTextAnalysis){
+			io.emit("update",{
+				board,
+				snapshotTextAnalysis : snapshotTextAnalysis[board],
+				snapshotMetaAnalysis : snapshotMetaAnalysis[board],
+			})
+		}
+	}
 }
 
 if(require.main === module){

@@ -1,7 +1,43 @@
+const fs = require('fs')
+if (!fs.existsSync("analysis")) fs.mkdirSync("analysis")
+if (!fs.existsSync("rawData")) fs.mkdirSync("rawData")
+
 let cycleStartTime = Date.now()
 let bytesLoaded = 0
 let lastRequest = Date.now()
 let lastResponse = Date.now()
+
+////////////
+// server //
+////////////
+const {io,expressApp} = require("./src/server")
+
+const initAPI = () => {
+	const low = require('lowdb')
+	const FileSync = require('lowdb/adapters/FileSync')
+	
+	io.on("connect",socket => {
+		socket.emit("initialData",{
+			snapshotTextAnalysis: low(new FileSync('analysis/textAnalysisResult.json')).getState(),
+			snapshotMetaAnalysis: low(new FileSync('analysis/metaAnalysisResult.json')).getState(),
+		})
+	})
+
+	// send data to all distributor-clients, that might already have connected earlier
+	io.emit("initialData",{
+		snapshotTextAnalysis: low(new FileSync('analysis/textAnalysisResult.json')).getState(),
+		snapshotMetaAnalysis: low(new FileSync('analysis/metaAnalysisResult.json')).getState(),
+	})
+	
+	expressApp.get('/initialData', function (req, res) {
+		pino.debug("expressApp.get /initialData from: %s",req.get('x-real-ip') || req.ip)
+		res.send({
+			snapshotTextAnalysis: low(new FileSync('analysis/textAnalysisResult.json')).getState(),
+			snapshotMetaAnalysis: low(new FileSync('analysis/metaAnalysisResult.json')).getState(),
+		})
+	})
+}
+initAPI()
 
 const getKBs = () => {
 	return `${(bytesLoaded / 1000 / ((Date.now() - cycleStartTime) / 1000)).toFixed(2)}kB/s`
@@ -48,9 +84,7 @@ for(let i = 2; i < process.argv.length; i+=2){
 }
 OPTIONS["--pages"] = parseInt(OPTIONS["--pages"])
 
-var fs = require('fs')
-if (!fs.existsSync("rawData")) fs.mkdirSync("rawData")
-
+const analyze = require("./analyze.js")
 const pino = require("./src/pino")
 ////////////////
 // setup done //
@@ -91,7 +125,7 @@ const handleCatalog = async (board,catalog) => {
 	catalog = catalog.slice(0,OPTIONS["--pages"])
 		
 	const newThreads = {}
-	let threadCount = [0,catalog[0].threads.length * catalog.length]
+	let threadCount = [0,catalog.reduce((acc,val) => acc + val.threads.length,0)] //FIXME: page 11 usually contains only 1 or 2 threads
 	let threadFails = 0
 	for(let page of catalog.reverse()){//start from the end of the catalog, otherwise threads might be pushed off in the meantime
 		for(let catalogThread of page.threads.reverse()){ // same thing, start from the back
@@ -119,17 +153,15 @@ const handleCatalog = async (board,catalog) => {
 	if(threadFails < threadCount[1] * 0.25){
 		boardDB.setState(newThreads).write()
 		pino.debug(`/${board}/ threads saved to disk`)
+		analyze(board)
 	}else{
 		pino.error(`/${board}/ had too many failed requests ${threadFails}/${threadCount[1]}. Not writing threads to disk !!!`)
 	}
 }
 
-const analyze = require("./analyze.js")
 const getCatalog = async index => {
-	
 	if(index >= allBoards.length){
 		cycleStartTime = Date.now()
-		await analyze()
 		index = 0
 	}
 	const board = allBoards[index]
