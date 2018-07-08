@@ -1,48 +1,32 @@
-const pino = require("./src/pino")
-
-const snapperAddr = "http://95.179.161.197:8080"
-
-const snapperIO = require('socket.io-client')(snapperAddr,{
-	transports: ['websocket']
+const db = require('level')('./db', {
+	keyEncoding: require("charwise"),
+	valueEncoding: "json",
+	cacheSize: 256 * 1024 * 1024
 })
 
-let snapshotMetaAnalysis = {}
-let snapshotTextAnalysis = {}
+const sub = require('subleveldown')
 
-snapperIO.on("connect", () => {
-	pino.info("✓✓✓ snapperIO connected to %s",snapperAddr)
-})
+const db1 = sub(db,"threads")
+const db2 = sub(db,"threads2")
 
-snapperIO.on("disconnect", reason => {
-	pino.error("snapperIO disconnected from %s - %s",snapperAddr,reason)
-})
+//const data = "nd89s7gfzg!!8s7df*".repeat(1000)
+const data = 123
 
-snapperIO.on("initialData", initialData => {
-	pino.info("✓✓✓ snapperIO received initialData")
-	snapshotMetaAnalysis = initialData.snapshotMetaAnalysis
-	snapshotTextAnalysis = initialData.snapshotTextAnalysis
-})
+const main = async () => {
+	await db.put("ttt7",data)
+	const res = await db.get("ttt7")
+	console.log(typeof res)  
+	console.log(res)
+}
 
-snapperIO.on("update", update => {
-	pino.debug("snapperIO received update")
-	snapshotMetaAnalysis[update.board] = update.snapshotMetaAnalysis
-	snapshotTextAnalysis[update.board] = update.snapshotTextAnalysis
-})
+main()
 
 /*
-app.get('/snapshotMetaAnalysis', (req, res) => {
-	res.send(snapshotMetaAnalysis)
-})
+const bw = require("bytewise")
+const cw = require("charwise")
 
-app.get('/snapshotMetaAnalysis/:board', (req, res) => {
-	res.send(snapshotMetaAnalysis[req.params.board])
-})
-
-app.get('/snapshotTextAnalysis', (req, res) => {
-	res.send(snapshotTextAnalysis)
-})
-
-app.get('/snapshotTextAnalysis/:board', (req, res) => {
-	res.send(snapshotTextAnalysis[req.params.board])
-})
+console.log(bw.encode("test"))
+console.log(bw.encode(123444))
+console.log(cw.encode("test"))
+console.log(cw.encode(123444))
 */

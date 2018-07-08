@@ -1,16 +1,14 @@
-const fs = require("fs")
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+//const low = require('lowdb')
+//const FileSync = require('lowdb/adapters/FileSync')
+const config = require("./config")
 const Entities = require('html-entities').Html5Entities
 const entities = new Entities()
 
-const main = async (board = "") => {
-	if(!fs.existsSync(__dirname + `/../rawData/${board}.json`)) return
+const {commentsDB,metaDataDB} = require("./db")
 
-	const metaDataDB = low(new FileSync(__dirname + `/../analysis/${board}_metadata.json`))
-	const commentDataDB = low(new FileSync(__dirname + `/../analysis/${board}_comments.json`))
-	const rawDataDB = low(new FileSync(__dirname + `/../rawData/${board}.json`)).value()
-
+const main = async (board,rawData,snapTime,duration) => {
+	console.time("extract")
+	const commentTimeCutOff = snapTime / 1000 - config.commentMaxAgeSeconds
 	const metaData = {
 		threads: 0,
 		repliesInThread: [],
@@ -30,14 +28,17 @@ const main = async (board = "") => {
 		postersPerThread: [],
 		postsByPoster: [], // per thread
 	}
-	const comments = {}
-  
-	for(let threadNum in rawDataDB){
+	const commentOps = []
+	const allVisibleComments = []
+	const oldButVisibleComments = []
+	
+	for(let threadNum in rawData){
 		//console.log(board,threadNum)
-		const thread = rawDataDB[threadNum]
+		const thread = rawData[threadNum]
 		const OP = thread.posts[0]
 		if(OP.closed || OP.sticky) continue
-		const threadAge = thread.posts[thread.posts.length - 1].time - OP.time
+		const threadAge = thread.snapTime / 1000 - OP.time
+		console.log("threadAge",threadAge)
 		/*
 		if(OP.sticky){
 			threadAge = thread.posts[thread.posts.length - 1].time - thread.posts[1].time
@@ -51,7 +52,6 @@ const main = async (board = "") => {
 		// Check length of posts and differentiate between charsByPost and charsByThread 
 		let newCharacters = 0
 		let repliesWithText = 0
-		comments[threadNum] = []
 		for(let i = 0; i < thread.posts.length; i++){ // skip the OP post
 			const post = thread.posts[i]
 			if(!post.com) post.com = ""
@@ -70,7 +70,16 @@ const main = async (board = "") => {
 			}
 			//if(board == "p") console.log(post.com)
 			metaData.charactersByPost.push(post.com.length)
-			comments[threadNum].push(post.com)
+
+			allVisibleComments.push(post.com)
+			if(post.time < commentTimeCutOff){
+				oldButVisibleComments.push(post.com)
+			}else{
+				commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
+			}
+			
+			//commentOps.push({type: 'put', key: [board,post.time,Math.random()], value: post.com})
+			//commentOps.push({type: 'put', key: [board,post.time,Math.random()], value: post.com})
 		}
 		metaData.charactersByThread.push(newCharacters / thread.posts.length)
 		metaData.repliesWithText.push(repliesWithText)
@@ -78,12 +87,41 @@ const main = async (board = "") => {
 		metaData.threadAgeHours.push(threadAge / 3600)
 		metaData.repliesPerMinute.push(OP.replies / (threadAge / 60))
 		metaData.postersPerThread.push(OP.unique_ips)
-		metaData.postsByPoster.push((OP.replies + 1) / OP.unique_ips)
-	}
-	console.log(`✅   /${board}/ data extraction done`)
+		metaData.postsByPoster.push(thread.posts.length / OP.unique_ips)
 
-	metaDataDB.setState(metaData).write()
-	commentDataDB.setState(comments).write()
+		//if(isNaN(OP.replies / (threadAge / 60))) console.log(OP.replies,threadAge,OP.time)
+	}	
+
+	console.log("visible",allVisibleComments.length)
+	console.log("recent",commentOps.length)
+	console.log("old",oldButVisibleComments.length)
+
+	try{
+		//TODO: make async in the future
+		//console.time("commentOps")
+		await commentsDB.batch(commentOps)
+		await metaDataDB.put([board,snapTime],{
+			snapTime,
+			duration,
+			metaData
+		})
+		//console.timeEnd("commentOps")
+	}catch(err){
+		console.error(err)
+	}
+	
+	//const metaDataDB = low(new FileSync(__dirname + `/../processedData/${board}_metadata_${now}.json`))
+	//const commentDataDB = low(new FileSync(__dirname + `/../processedData/${board}_comments_${now}.json`))
+	//metaDataDB.setState(metaData).write()
+	//commentDataDB.setState(comments).write()
+	//const recentComments = commentOps.map(item => item.value)
+	console.timeEnd("extract")
+	console.log(`✅   /${board}/ data extraction done`)
+	return {
+		metaData,
+		allVisibleComments,
+		oldButVisibleComments
+	}
 }
 
 module.exports = main

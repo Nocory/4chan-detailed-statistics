@@ -1,0 +1,10 @@
+const bw = require("bytewise")
+const cw = require("charwise")
+
+console.log(bw.encode([Date.now(),85874261]))
+console.log(cw.encode([Date.now(),85874261]))
+console.log(Date.now()+"!"+85874261)
+console.log(Date.now()+"!"+Math.random())
+console.log("111" < "5")
+console.log(cw.encode(111) < cw.encode(555))
+console.log(cw.decode(cw.encode([111,["a"],"b"])))

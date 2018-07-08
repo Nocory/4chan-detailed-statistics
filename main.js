@@ -1,6 +1,9 @@
 const fs = require('fs')
-if (!fs.existsSync("analysis")) fs.mkdirSync("analysis")
 if (!fs.existsSync("rawData")) fs.mkdirSync("rawData")
+if (!fs.existsSync("finalResults")) fs.mkdirSync("finalResults")
+
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
 
 let cycleStartTime = Date.now()
 let bytesLoaded = 0
@@ -13,28 +16,16 @@ let lastResponse = Date.now()
 const {io,expressApp} = require("./src/server")
 
 const initAPI = () => {
-	const low = require('lowdb')
-	const FileSync = require('lowdb/adapters/FileSync')
-	
 	io.on("connect",socket => {
-		socket.emit("initialData",{
-			snapshotTextAnalysis: low(new FileSync('analysis/textAnalysisResult.json')).getState(),
-			snapshotMetaAnalysis: low(new FileSync('analysis/metaAnalysisResult.json')).getState(),
-		})
+		socket.emit("initialData",low(new FileSync(`finalResults/db.json`)).value())
 	})
 
 	// send data to all distributor-clients, that might already have connected earlier
-	io.emit("initialData",{
-		snapshotTextAnalysis: low(new FileSync('analysis/textAnalysisResult.json')).getState(),
-		snapshotMetaAnalysis: low(new FileSync('analysis/metaAnalysisResult.json')).getState(),
-	})
+	io.emit("initialData",low(new FileSync(`finalResults/db.json`)).value())
 	
 	expressApp.get('/initialData', function (req, res) {
 		pino.debug("expressApp.get /initialData from: %s",req.get('x-real-ip') || req.ip)
-		res.send({
-			snapshotTextAnalysis: low(new FileSync('analysis/textAnalysisResult.json')).getState(),
-			snapshotMetaAnalysis: low(new FileSync('analysis/metaAnalysisResult.json')).getState(),
-		})
+		res.send(low(new FileSync(`finalResults/db.json`)).value())
 	})
 }
 initAPI()
@@ -69,9 +60,6 @@ axios.interceptors.response.use(function(res) {
 }, function(error) {
 	return Promise.reject(error)
 })
-
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
 
 const OPTIONS = {
 	"--from": "3",
@@ -113,8 +101,8 @@ const getThread = async (board,threadNum,attempt = 1) => {
 	} catch(err){
 		lastResponse = Date.now()
 		pino.warn(err.message,`/${board}/ #${threadNum} failed at attempt ${attempt}`)
-		await sleep(OPTIONS["--delay"])
 		if(attempt >= 2) return null
+		if(err.response && err.response.status == 404) return null
 		return getThread(board,threadNum,attempt + 1)
 	}
 }
@@ -132,28 +120,36 @@ const handleCatalog = async (board,catalog) => {
 			threadCount[0]++
 
 			//check if thread in the DB is still fresh
-			const existingThread = boardDB.get(String(catalogThread.no),null).value() 
+			const existingThread = boardDB.get(String(catalogThread.no),null).value() || boardDB.get("threads."+ String(catalogThread.no),null).value()
+			//console.log("existing",existingThread)
 			if(existingThread && existingThread.posts[existingThread.posts.length - 1].time == catalogThread.last_modified){
+				existingThread.snapTime = Date.now()
 				newThreads[String(catalogThread.no)] = existingThread
-				pino.debug(`/${board}/ #${catalogThread.no} was still fresh`)
-				continue
-			}
-			
-			// fetch the thread 
-			const threadContent = await getThread(board,catalogThread.no)
-			if(threadContent){
-				newThreads[String(catalogThread.no)] = threadContent
-				pino.debug(`/${board}/ (${threadCount[0]}/${threadCount[1]}) | ${getKBs()}`)
+				//pino.debug(`/${board}/ #${catalogThread.no} was still fresh`)
 			}else{
-				threadFails++
-				pino.error(`/${board}/ #${catalogThread.no} failed to load. ${threadFails} failed requests so far.`)
+				// fetch the thread 
+				const threadContent = await getThread(board,catalogThread.no)
+				if(threadContent){
+					threadContent.snapTime = Date.now()
+					newThreads[String(catalogThread.no)] = threadContent
+					pino.debug(`/${board}/ (${threadCount[0]}/${threadCount[1]}) | ${getKBs()}`)
+				}else{
+					threadFails++
+					pino.error(`/${board}/ #${catalogThread.no} failed to load. ${threadFails} failed requests so far.`)
+				}
 			}
 		}
 	}
 	if(threadFails < threadCount[1] * 0.25){
-		boardDB.setState(newThreads).write()
+		const snapTime = Date.now()
+		const duration = snapTime - (boardDB.get("snapTime").value() || 0)
+		boardDB.setState({
+			snapTime,
+			duration,
+			threads: newThreads
+		}).write()
 		pino.debug(`/${board}/ threads saved to disk`)
-		analyze(board)
+		analyze(board,newThreads,snapTime,duration)
 	}else{
 		pino.error(`/${board}/ had too many failed requests ${threadFails}/${threadCount[1]}. Not writing threads to disk !!!`)
 	}
@@ -162,6 +158,7 @@ const handleCatalog = async (board,catalog) => {
 const getCatalog = async index => {
 	if(index >= allBoards.length){
 		cycleStartTime = Date.now()
+		bytesLoaded = 0
 		index = 0
 	}
 	const board = allBoards[index]
@@ -185,6 +182,7 @@ const getCatalog = async index => {
 
 let allBoards = require("./src/config.js").boards
 allBoards = allBoards.slice(allBoards.indexOf(OPTIONS["--from"]),allBoards.indexOf(OPTIONS["--to"]) + 1)
+//console.log(allBoards)
 if (!allBoards.length){
 	pino.fatal("invalid boards selected")
 	return

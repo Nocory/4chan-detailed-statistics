@@ -1,72 +1,101 @@
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+const config = require("./config")
+//const low = require('lowdb')
+//const FileSync = require('lowdb/adapters/FileSync')
 const Sentiment = require("sentiment")
 const sentiment = new Sentiment()
-const ss = require("simple-statistics")
-const fs = require("fs")
+//const fs = require("fs")
 
-
+//const {textAnalysisResultDB} = require("./db")
+const {commentsDB} = require("./db")
 
 const wordsToCheck = [
 	"boomer",
+	"reddit",
 	"nigger",
 	"jew",
 	"trump",
 	"cuck",
 	"meme",
-	"sjw"
+	"sjw",
+	"kek"
 ]
 
-const main = async (board = "") => {
-	if(!fs.existsSync(__dirname + `/../analysis/${board}_comments.json`)) return
-	const commentDataDB = low(new FileSync(__dirname + `/../analysis/${board}_comments.json`))
-	const textAnalysisDB = low(new FileSync(__dirname + '/../analysis/textAnalysisResult.json'))
-	const commentData = commentDataDB.getState()
+const main = async (board,snapTime,oldComments) => {
+
 
 	const textAnalysis = {
-		sentiment : [],
-		wordOccurence : {},
-		postsWithWord : {},
-		totalPosts : 0,
+		sentimentScore : 0,
+		sentimentComparative : 0,
+		text_ratio_ : {},
+		posts_ratio_ : {},
+		totalComments : 0,
 		totalCommentLength : 0
 	}
 
 	for(let word of wordsToCheck){
-		textAnalysis.wordOccurence[word] = 0
-		textAnalysis.postsWithWord[word] = 0
+		textAnalysis.text_ratio_[word] = 0
+		textAnalysis.posts_ratio_[word] = 0
 	}
 
-	for(let thread in commentData){
-		for(let comment of commentData[thread]){
-			textAnalysis.totalPosts++
-			textAnalysis.totalCommentLength += comment.length
-			
-			textAnalysis.sentiment.push(sentiment.analyze(comment).score)
-			for(let word of wordsToCheck){
-				const re = new RegExp(word,"gmi")
-				const match = comment.match(re)
-				if(match){
-					textAnalysis.wordOccurence[word] += match.length
-					textAnalysis.postsWithWord[word]++
-				}
+	const analyzeComment = comment => {
+		//console.log(data)
+		//const time = data.key[1]
+		//const comment = data.value
+		textAnalysis.totalComments++
+		textAnalysis.totalCommentLength += comment.length
+		const sentimentResult = sentiment.analyze(comment)
+		textAnalysis.sentimentScore += sentimentResult.score
+		textAnalysis.sentimentComparative += sentimentResult.comparative
+		for(let word of wordsToCheck){
+			const re = new RegExp(word,"gmi")
+			const match = comment.match(re)
+			if(match){
+				textAnalysis.text_ratio_[word] += match.length
+				textAnalysis.posts_ratio_[word]++
 			}
 		}
 	}
+
+	for(let comment of oldComments){
+		analyzeComment(comment)
+	}
+
+	return new Promise((resolve,reject)=>{
+		console.time("analyzeText")
+		commentsDB.createReadStream({
+			gt: [board,snapTime / 1000 - config.commentMaxAgeSeconds,0],
+			lte: [board,snapTime,"~"]
+		})
+			.on('data', function (data) {
+				analyzeComment(data.value)
+			})
+			.on('error', function (err) {
+				reject(err)
+			})
+			.on('end', function () {
+				const textAnalysisResult = {
+					commentsAnalyzed: textAnalysis.totalComments,
+					sentimentScore_mean: textAnalysis.sentimentScore / textAnalysis.totalComments,
+					sentimentComparative_mean: textAnalysis.sentimentComparative / textAnalysis.totalComments,
+					commentLength_mean: textAnalysis.totalCommentLength / textAnalysis.totalComments,
+					text_ratio_: {},
+					posts_ratio_: {},
+				}
+				//console.log(textAnalysis)
+				for(let word of wordsToCheck){
+					textAnalysisResult.text_ratio_[word] = textAnalysis.text_ratio_[word] * word.length / textAnalysis.totalCommentLength
+					textAnalysisResult.posts_ratio_[word] = textAnalysis.posts_ratio_[word] / textAnalysis.totalComments
+				}
+				
+				console.timeEnd("analyzeText")
+				console.log(`✅   /${board}/ text analysis done. (${textAnalysis.totalComments}/${textAnalysis.totalComments - oldComments.length}/${oldComments.length} comments)`)
+				resolve(textAnalysisResult)
+			})
+	})
+
+
   
-	const textAnalysisResult = {
-		sentiment: 0,
-		wordText_ratio: {},
-		postsWithWord_ratio: {},
-	}
 
-	textAnalysisResult.sentiment = ss.mean(textAnalysis.sentiment)
-	for(let word of wordsToCheck){
-		textAnalysisResult.wordText_ratio[word] = textAnalysis.wordOccurence[word] * word.length / textAnalysis.totalCommentLength
-		textAnalysisResult.postsWithWord_ratio[word] = textAnalysis.postsWithWord[word] / textAnalysis.totalPosts
-	}
-
-	textAnalysisDB.set(board,textAnalysisResult).write()
-	console.log(`✅   /${board}/ text analysis done`)
 	
 	/*
 	const sentimentResultArr = Object.entries(sentimentResult).sort((x,y) => y[1] - x[1])
@@ -74,17 +103,27 @@ const main = async (board = "") => {
 		console.log(data)
 	}
 	*/
-
-	const allTextResults = textAnalysisDB.getState()
+	/*
+	const allTextResults = textAnalysisDB.value()
 	const stringify = require('csv-stringify/lib/sync')
 	console.log("⏳   Creating csv file from text analysis result")
-	const csvArr = []
-	csvArr.push(['Name','sentiment',...wordsToCheck.map(x => x+"Text_ratio"),...wordsToCheck.map(x => x+"InPost_ratio")])
-	for(board of Object.keys(allTextResults).sort()){
-		csvArr.push([board,allTextResults[board].sentiment,...Object.values(allTextResults[board].wordText_ratio),...Object.values(allTextResults[board].postsWithWord_ratio)])
+	
+	const csvLines = []
+	const lineToAdd = ["Board","sentimentScore_mean","sentimentComparative_mean"]
+	lineToAdd.push(...wordsToCheck.map(word => "text_ratio_" + word))
+	lineToAdd.push(...wordsToCheck.map(word => "posts_ratio_" + word))
+	csvLines.push(lineToAdd)
+	for(let board of Object.keys(allTextResults).sort()){
+		const lineToAdd = [board,allTextResults[board].sentimentScore_mean,allTextResults[board].sentimentComparative_mean]
+		lineToAdd.push(...wordsToCheck.map(word => allTextResults[board].text_ratio_[word]))
+		lineToAdd.push(...wordsToCheck.map(word => allTextResults[board].posts_ratio_[word]))
+		csvLines.push(lineToAdd)
 	}
-	fs.writeFileSync(__dirname + "/../analysis/textAnalysisResult.csv",stringify(csvArr))
+	
+	//console.log(csvLines)
+	fs.writeFileSync(__dirname + "/../analysisResult/text.csv",stringify(csvLines))
 	console.log("✅   Created csv file successfully")
+	*/
 
 	/*
 	const boomerArr = []
@@ -97,7 +136,7 @@ const main = async (board = "") => {
 	}
 	*/
 
-	return allTextResults
+	//return textAnalysisResult
 }
 
 module.exports = main
