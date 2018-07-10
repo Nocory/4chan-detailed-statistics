@@ -10,14 +10,13 @@ const {commentsDB} = require("./db")
 
 const wordsToCheck = [
 	"boomer",
-	"reddit",
-	"nigger",
-	"jew",
 	"trump",
-	"cuck",
+	"thank",
 	"meme",
 	"sjw",
-	"kek"
+	"kek",
+	"/pol/",
+	"eddit",
 ]
 
 const main = async (board,snapTime,oldComments) => {
@@ -63,7 +62,7 @@ const main = async (board,snapTime,oldComments) => {
 	return new Promise((resolve,reject)=>{
 		console.time("analyzeText")
 		commentsDB.createReadStream({
-			gt: [board,snapTime / 1000 - config.commentMaxAgeSeconds,0],
+			gt: [board,snapTime / 1000 - config.commentsAnalyzeSeconds,0],
 			lte: [board,snapTime,"~"]
 		})
 			.on('data', function (data) {
@@ -88,55 +87,13 @@ const main = async (board,snapTime,oldComments) => {
 				}
 				
 				console.timeEnd("analyzeText")
-				console.log(`✅   /${board}/ text analysis done. (${textAnalysis.totalComments}/${textAnalysis.totalComments - oldComments.length}/${oldComments.length} comments)`)
+				console.log(`✅   /${board}/ text analysis done.`)
+				//console.log(`Analyzed: ${textAnalysis.totalComments}`)
+				//console.log(`Last day: ${textAnalysis.totalComments - oldComments.length}`)
+				//console.log(`Older but visible: ${oldComments.length}`)
 				resolve(textAnalysisResult)
 			})
 	})
-
-
-  
-
-	
-	/*
-	const sentimentResultArr = Object.entries(sentimentResult).sort((x,y) => y[1] - x[1])
-	for(let data of sentimentResultArr){
-		console.log(data)
-	}
-	*/
-	/*
-	const allTextResults = textAnalysisDB.value()
-	const stringify = require('csv-stringify/lib/sync')
-	console.log("⏳   Creating csv file from text analysis result")
-	
-	const csvLines = []
-	const lineToAdd = ["Board","sentimentScore_mean","sentimentComparative_mean"]
-	lineToAdd.push(...wordsToCheck.map(word => "text_ratio_" + word))
-	lineToAdd.push(...wordsToCheck.map(word => "posts_ratio_" + word))
-	csvLines.push(lineToAdd)
-	for(let board of Object.keys(allTextResults).sort()){
-		const lineToAdd = [board,allTextResults[board].sentimentScore_mean,allTextResults[board].sentimentComparative_mean]
-		lineToAdd.push(...wordsToCheck.map(word => allTextResults[board].text_ratio_[word]))
-		lineToAdd.push(...wordsToCheck.map(word => allTextResults[board].posts_ratio_[word]))
-		csvLines.push(lineToAdd)
-	}
-	
-	//console.log(csvLines)
-	fs.writeFileSync(__dirname + "/../analysisResult/text.csv",stringify(csvLines))
-	console.log("✅   Created csv file successfully")
-	*/
-
-	/*
-	const boomerArr = []
-	for(let board in textAnalysisResult){
-		boomerArr.push([board,textAnalysisResult[board].postsWithWord_ratio.boomer])
-	}
-	boomerArr.sort((x,y) => y[1] - x[1])
-	for(let data of boomerArr){
-		console.log(`/${data[0]}/ ${(data[1]*100).toFixed(4)}%`)
-	}
-	*/
-
-	//return textAnalysisResult
 }
 
 module.exports = main

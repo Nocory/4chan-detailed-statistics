@@ -2,6 +2,7 @@ const {metaAnalysisResultDB} = require("./db")
 
 const summarize = (metaSum,toAdd,weight) => {
 	for(let key in toAdd){
+		toAdd[key] = toAdd[key] || 0 //fox for /vip/ not listing unique_ips in the thread json //TODO: remove in a week or so
 		if(typeof toAdd[key] == "object"){
 			if(!metaSum[key]) metaSum[key] = {}
 			summarize(metaSum[key],toAdd[key])
@@ -12,14 +13,14 @@ const summarize = (metaSum,toAdd,weight) => {
 	return metaSum
 }
 
-const average = (metaSum,length) => {
+const average = (metaSum,totalWeight) => {
 	const metaAvg = {}
 	for(let key in metaSum){
 		//console.log("key",key)
 		if(typeof metaSum[key] == "object"){
-			metaAvg[key] = average(metaSum[key],length)
+			metaAvg[key] = average(metaSum[key],totalWeight)
 		}else{
-			metaAvg[key] = metaSum[key] / length
+			metaAvg[key] = metaSum[key] / totalWeight
 		}
 	}
 	return metaAvg
@@ -41,6 +42,7 @@ const main = async (board,snapTime) => {
 				reject(err)
 			})
 			.on('end', function () {
+				allResults.reverse()
 				const metaDurationHours = allResults.reduce((acc,val) => acc + val.duration,0) / (1000 * 60 * 60)
 				console.log(`⏳   /${board}/ Processing ${allResults.length} meta analysis results, covering the last ${metaDurationHours} hours`)
 				let metaSum = {}
@@ -49,10 +51,11 @@ const main = async (board,snapTime) => {
 					//console.log(obj.result)
 					let thisHoursCovered = Math.min(obj.duration / (1000 * 60 * 60),24 - totalHoursCovered)
 					totalHoursCovered += thisHoursCovered
+					//console.log(board,"thisHoursCovered",obj.duration / (1000 * 60 * 60),thisHoursCovered,totalHoursCovered)
 					metaSum = summarize(metaSum,obj.result,thisHoursCovered)
 				}
 				//console.log("metaSum",metaSum)
-				console.log(`⏳   /${board}/ averaging for the last ${totalHoursCovered} hours`)
+				//console.log(`⏳   /${board}/ averaging for the last ${totalHoursCovered} hours`)
 				const metaAvg = average(metaSum,totalHoursCovered)
 				console.log(`✅   /${board}/ meta analysis average done`)
 				//console.log("metaAvg",metaAvg)

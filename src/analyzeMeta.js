@@ -6,20 +6,22 @@ const ss = require('simple-statistics')
 
 const {metaAnalysisResultDB} = require("./db")
 
-const main = async (board,metaData,snapTime,duration) => {
+const main = async (board,metaData,snapTime,duration,chanstatsData = null) => {
 	console.time("analyzeMeta")
 	
 	const coefficientOfVariation = arr => {
 		return ss.standardDeviation(arr) / ss.mean(arr)
 	}
 
-	console.log("⏳   Fetching 4stats board data")
-	let chanstatsData = {}
-	try{
-		chanstatsData = (await axios.get(`https://api.4stats.io/board/${board}`)).data
-		console.log("✅   Received 4stats board data")
-	}catch(err){
-		console.error(err.message)
+	
+	if(!chanstatsData){
+		try{
+			//console.log("⏳   Fetching 4stats board data")
+			chanstatsData = (await axios.get(`https://api.4stats.io/board/${board}`)).data
+			console.log("✅   Received 4stats board data")
+		}catch(err){
+			console.error(err.message)
+		}
 	}
 	
 	const result = {
@@ -89,46 +91,6 @@ const main = async (board,metaData,snapTime,duration) => {
 	console.timeEnd("analyzeMeta")
 	//console.log(metaData.repliesPerMinute)
 	console.log(`✅   /${board}/ meta analysis done`)
-
-	/////////
-	// CSV //
-	/////////
-	/*
-	const allMetaAnalysisResults = metaAnalysisDB.value()
-	const stringify = require('csv-stringify/lib/sync')
-	console.log("⏳   Creating csv file from meta analysis result")
-	const boards = Object.keys(allMetaAnalysisResults).sort()
-	const csvArr = []
-	csvArr.push(['Name',...Object.keys(allMetaAnalysisResults[boards[0]])])
-	for(board of boards){
-		csvArr.push([board,...Object.values(allMetaAnalysisResults[board])])
-	}
-	fs.writeFileSync(__dirname + "/../analysisResult/meta.csv",stringify(csvArr))
-	console.log("✅   Created csv file successfully.")
-	*/
-
-	/*
-	const expResult = {}
-
-	for(board in metaData){
-		const metaData = metaData[board]
-
-		expResult[board] = {
-			imageRatio: ss.sum(metaData.images) / ss.sum(metaData.repliesInThread),
-			postLengthByPost33thPercentile: ss.quantile(metaData.charactersByPost,0.33),
-			postLengthByPost50thPercentile: ss.quantile(metaData.charactersByPost,0.50),
-			postLengthByPost67thPercentile: ss.quantile(metaData.charactersByPost,0.67),
-		}
-
-		expResult[board].botErr = expResult[board].postLengthByPost50thPercentile - expResult[board].postLengthByPost33thPercentile
-		expResult[board].topErr = expResult[board].postLengthByPost67thPercentile - expResult[board].postLengthByPost50thPercentile
-	}
-
-	experimentalDB.setState(expResult)
-	experimentalDB.write()
-
-	//console.log(result)
-	*/
 
 	return result
 }

@@ -120,6 +120,7 @@ const handleCatalog = async (board,catalog) => {
 			threadCount[0]++
 
 			//check if thread in the DB is still fresh
+			//TODO: remove soon, temp workaround since the object layout changed
 			const existingThread = boardDB.get(String(catalogThread.no),null).value() || boardDB.get("threads."+ String(catalogThread.no),null).value()
 			//console.log("existing",existingThread)
 			if(existingThread && existingThread.posts[existingThread.posts.length - 1].time == catalogThread.last_modified){
@@ -188,11 +189,10 @@ if (!allBoards.length){
 	return
 }
 
-// find the oldest board index and begin with that
-
+pino.info("⏳   Checking for oldest raw data. This might take a few seconds.")
 
 let oldestBoard = allBoards[0]
-let oldestTime = new Date()
+let oldestTime = Date.now()
 
 for(let board of allBoards){
 	const file = `rawData/${board}.json`
@@ -200,13 +200,14 @@ for(let board of allBoards){
 		oldestBoard = board
 		break
 	}
-	const stats = fs.statSync(file)
-	//console.log(stats)
-	if(stats.mtime < oldestTime){
+	const boardDB = low(new FileSync(`rawData/${board}.json`))
+	const snapTime = boardDB.get("snapTime").value() || 0
+	
+	if(snapTime < oldestTime){
 		oldestBoard = board
-		oldestTime = stats.mtime
+		oldestTime = snapTime
 	}
 }
 const oldestIndex = allBoards.indexOf(oldestBoard)
-pino.info(`Oldest board is ${oldestBoard}. Starting from index ${oldestIndex}`)
+pino.info(`Oldest board is ${oldestBoard}. Age ${((Date.now() - oldestTime) / (1000 * 60 * 60)).toFixed(2)} hours. Starting from index ${oldestIndex}`)
 getCatalog(oldestIndex)

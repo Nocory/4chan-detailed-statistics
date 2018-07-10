@@ -6,9 +6,11 @@ const entities = new Entities()
 
 const {commentsDB,metaDataDB} = require("./db")
 
-const main = async (board,rawData,snapTime,duration) => {
+const main = async (board,rawData,snapTime,duration,writeToDB = true) => {
+	console.log(`⏳   /${board}/ extracting data`)
 	console.time("extract")
-	const commentTimeCutOff = snapTime / 1000 - config.commentMaxAgeSeconds
+	const commentSaveCutOff = snapTime / 1000 - config.commentsSaveSeconds
+	const commentOldButVisibleCutOff = snapTime / 1000 - config.commentsAnalyzeSeconds
 	const metaData = {
 		threads: 0,
 		repliesInThread: [],
@@ -18,13 +20,7 @@ const main = async (board,rawData,snapTime,duration) => {
 		charactersByPost: [],
 		charactersByThread: [],
 		threadAgeHours: [],
-		uniqueIPs: [], // not 'actually' unique IPs, just the sum of the unique posters per thread
-		
 		repliesPerMinute: [],
-		avgPostLengthByPost: [],
-		avgPostLengthByThread: [],
-		imageRatio: [],
-		avgThreadAgeHours: [],
 		postersPerThread: [],
 		postsByPoster: [], // per thread
 	}
@@ -37,13 +33,7 @@ const main = async (board,rawData,snapTime,duration) => {
 		const thread = rawData[threadNum]
 		const OP = thread.posts[0]
 		if(OP.closed || OP.sticky) continue
-		const threadAge = thread.snapTime / 1000 - OP.time
-		console.log("threadAge",threadAge)
-		/*
-		if(OP.sticky){
-			threadAge = thread.posts[thread.posts.length - 1].time - thread.posts[1].time
-		}
-		*/
+		const threadAgeSeconds = thread.snapTime / 1000 - OP.time
 		
 		metaData.threads++
 		metaData.repliesInThread.push(OP.replies)
@@ -72,11 +62,15 @@ const main = async (board,rawData,snapTime,duration) => {
 			metaData.charactersByPost.push(post.com.length)
 
 			allVisibleComments.push(post.com)
-			if(post.time < commentTimeCutOff){
+			if(post.time > commentSaveCutOff) commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
+			if(post.time < commentOldButVisibleCutOff) oldButVisibleComments.push(post.com)
+			/*
+			if(post.time < commentSaveCutOff){
 				oldButVisibleComments.push(post.com)
 			}else{
 				commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
 			}
+			*/
 			
 			//commentOps.push({type: 'put', key: [board,post.time,Math.random()], value: post.com})
 			//commentOps.push({type: 'put', key: [board,post.time,Math.random()], value: post.com})
@@ -84,27 +78,25 @@ const main = async (board,rawData,snapTime,duration) => {
 		metaData.charactersByThread.push(newCharacters / thread.posts.length)
 		metaData.repliesWithText.push(repliesWithText)
 
-		metaData.threadAgeHours.push(threadAge / 3600)
-		metaData.repliesPerMinute.push(OP.replies / (threadAge / 60))
-		metaData.postersPerThread.push(OP.unique_ips)
-		metaData.postsByPoster.push(thread.posts.length / OP.unique_ips)
-
-		//if(isNaN(OP.replies / (threadAge / 60))) console.log(OP.replies,threadAge,OP.time)
-	}	
-
-	console.log("visible",allVisibleComments.length)
-	console.log("recent",commentOps.length)
-	console.log("old",oldButVisibleComments.length)
+		metaData.threadAgeHours.push(threadAgeSeconds / 3600)
+		metaData.repliesPerMinute.push(OP.replies / (threadAgeSeconds / 60))
+		metaData.postersPerThread.push(OP.unique_ips || 0)
+		metaData.postsByPoster.push(thread.posts.length / OP.unique_ips || 0)
+	}
 
 	try{
 		//TODO: make async in the future
 		//console.time("commentOps")
-		await commentsDB.batch(commentOps)
-		await metaDataDB.put([board,snapTime],{
-			snapTime,
-			duration,
-			metaData
-		})
+		if(writeToDB){
+			await commentsDB.batch(commentOps)
+			await metaDataDB.put([board,snapTime],{
+				snapTime,
+				duration,
+				metaData
+			})
+		}else{
+			console.log(`/${board}/ extraction skipping DB write`)
+		}
 		//console.timeEnd("commentOps")
 	}catch(err){
 		console.error(err)
@@ -117,6 +109,10 @@ const main = async (board,rawData,snapTime,duration) => {
 	//const recentComments = commentOps.map(item => item.value)
 	console.timeEnd("extract")
 	console.log(`✅   /${board}/ data extraction done`)
+
+	//console.log("com visible on board",allVisibleComments.length)
+	//console.log("com younger than a week",commentOps.length)
+	//console.log("com older than a day",oldButVisibleComments.length)
 	return {
 		metaData,
 		allVisibleComments,

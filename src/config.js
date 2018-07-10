@@ -1,5 +1,6 @@
 module.exports = {
-	commentMaxAgeSeconds: 60 * 60 * 24 * 1,
+	commentsSaveSeconds: 60 * 60 * 24 * 7,
+	commentsAnalyzeSeconds: 60 * 60 * 24 * 1,
 	boards: [
 		'3',
 		'a',

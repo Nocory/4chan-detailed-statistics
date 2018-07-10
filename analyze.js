@@ -6,6 +6,8 @@ const extractData = require("./src/extractData.js")
 const analyzeMeta = require("./src/analyzeMeta.js")
 const analyzeText = require("./src/analyzeText")
 const calcMetaAverage = require("./src/calcMetaAverage")
+const createCSV = require("./src/createCSV")
+const cleanDB = require("./src/cleanDB")
 
 const {io} = require("./src/server")
 
@@ -17,7 +19,8 @@ const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const finalResultsDB = low(new FileSync(`finalResults/db.json`))
 
-const main = async (board = OPTIONS["--board"],rawThreadData = null,snapTime = null,duration = Infinity) => {
+const main = async (board = OPTIONS["--board"],rawThreadData = null,snapTime = null,duration = 1) => {
+	console.log("⏳   Starting rawThreadData analysis")
 	if(!rawThreadData){
 		const rawData = low(new FileSync(`rawData/${board}.json`)).value()
 		rawThreadData = rawData.threads
@@ -49,12 +52,12 @@ const main = async (board = OPTIONS["--board"],rawThreadData = null,snapTime = n
 			}).write()
 			io.emit("update",{
 				board,
-				//textAnalysis,
-				//latestMetaAnalysis,
 				textAnalysisLastDay,
 				metaAnalysisLastSnapshot,
 				metaAnalysisLastDayAverage
 			})
+			createCSV()
+			cleanDB(board,true)
 		}
 	}catch(err){
 		console.error(err)
