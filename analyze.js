@@ -4,61 +4,52 @@ if (!fs.existsSync("finalResults")) fs.mkdirSync("finalResults")
 
 const extractData = require("./src/extractData.js")
 const analyzeMeta = require("./src/analyzeMeta.js")
-const analyzeText = require("./src/analyzeText")
-const calcMetaAverage = require("./src/calcMetaAverage")
+//const analyzeText = require("./src/analyzeText")
+//const calcMetaAverage = require("./src/calcMetaAverage")
 const createCSV = require("./src/createCSV")
 const cleanDB = require("./src/cleanDB")
-
+const db = require("./src/db")
 const {io} = require("./src/server")
+const axios = require("axios")
 
 const OPTIONS = {
-	"--board": null
+	"--board": "a"
 }
 
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-const finalResultsDB = low(new FileSync(`finalResults/db.json`))
+const lowFinalResultsDB = db.lowFinalResultsDB
 
-const main = async (board = OPTIONS["--board"],rawThreadData = null,snapTime = null,duration = 1) => {
-	console.log("⏳   Starting rawThreadData analysis")
-	if(!rawThreadData){
-		const rawData = low(new FileSync(`rawData/${board}.json`)).value()
-		rawThreadData = rawData.threads
-		snapTime = rawData.snapTime
-		duration = rawData.duration
-	}
-	
+let chanstatsData = null
+let chanstatsDataTime = 0
+
+//const main = async (board = OPTIONS["--board"],rawThreadData = null,snapTime = null,duration = 1) => {
+const main = async (board = OPTIONS["--board"],boardDB,writeToDB = true) => {
+	console.log(`⏳   /${board}/ starting full analysis`)
 	try{
-		const extractedData = await extractData(board,rawThreadData,snapTime,duration)
-		const textAnalysisLastDay = await analyzeText(board,snapTime,extractedData.oldButVisibleComments)
-		const metaAnalysisLastSnapshot = await analyzeMeta(board,extractedData.metaData,snapTime,duration)
-	
-		//const textAnalysisAverage = generateAverage(board,"text",latestTextAnalysis,time)
-		const metaAnalysisLastDayAverage = await calcMetaAverage(board,snapTime)
-		
-		textAnalysisLastDay.created = snapTime
-		metaAnalysisLastSnapshot.created = snapTime
-		metaAnalysisLastDayAverage.created = snapTime
-
-		//console.log("textAnalysisLastDay",textAnalysisLastDay)
-		//console.log("metaAnalysisLastSnapshot",metaAnalysisLastSnapshot)
-		//console.log("metaAnalysisLastWeekAverage",metaAnalysisLastDayAverage)
-	
-		if(textAnalysisLastDay && metaAnalysisLastSnapshot && metaAnalysisLastDayAverage){
-			finalResultsDB.set(board,{
-				textAnalysisLastDay,
-				metaAnalysisLastSnapshot,
-				metaAnalysisLastDayAverage
-			}).write()
-			io.emit("update",{
-				board,
-				textAnalysisLastDay,
-				metaAnalysisLastSnapshot,
-				metaAnalysisLastDayAverage
-			})
-			createCSV()
-			cleanDB(board,true)
+		const rawData = boardDB ? boardDB.value() : db.getBoardDB(board).value()
+		const extractedData = await extractData(board,rawData,writeToDB)
+		//console.log(extractedData.metaData)
+		//await analyzeText.createCache(board,rawData.snapTime,extractedData.oldButVisibleComments)
+		//const textAnalysisResult = await analyzeText.analyze(board,".*")
+		if(chanstatsDataTime < Date.now() - 1000 * 60 * 5){
+			chanstatsData = (await axios.get(`https://api.4stats.io/allBoardStats`)).data
+			chanstatsDataTime = Date.now()
 		}
+		const metaAnalysis = await analyzeMeta(board,rawData.snapTime,chanstatsData[board])
+		
+		//textAnalysisResult.created = rawData.snapTime
+		metaAnalysis.created = rawData.snapTime
+	
+		lowFinalResultsDB.set(board,{
+			//textAnalysisResult,
+			metaAnalysis
+		}).write()
+		io.emit("update",{
+			board,
+			//textAnalysisResult,
+			metaAnalysis
+		})
+		//createCSV()
+		if(writeToDB) cleanDB(board,true) //(board,dryRun)
 	}catch(err){
 		console.error(err)
 	}
@@ -68,6 +59,7 @@ if(require.main === module){
 	for(let i = 2; i < process.argv.length; i+=2){
 		OPTIONS[process.argv[i]] = process.argv[i+1]
 	}
+	console.log(OPTIONS)
 	main()
 }
 

@@ -1,34 +1,11 @@
-const fs = require('fs')
-if (!fs.existsSync("rawData")) fs.mkdirSync("rawData")
-if (!fs.existsSync("finalResults")) fs.mkdirSync("finalResults")
-
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+const fs = require("fs")
+const db = require("./src/db")
+const analyze = require("./analyze.js")
+const pino = require("./src/pino")
 
 let cycleStartTime = Date.now()
 let bytesLoaded = 0
 let lastRequest = Date.now()
-let lastResponse = Date.now()
-
-////////////
-// server //
-////////////
-const {io,expressApp} = require("./src/server")
-
-const initAPI = () => {
-	io.on("connect",socket => {
-		socket.emit("initialData",low(new FileSync(`finalResults/db.json`)).value())
-	})
-
-	// send data to all distributor-clients, that might already have connected earlier
-	io.emit("initialData",low(new FileSync(`finalResults/db.json`)).value())
-	
-	expressApp.get('/initialData', function (req, res) {
-		pino.debug("expressApp.get /initialData from: %s",req.get('x-real-ip') || req.ip)
-		res.send(low(new FileSync(`finalResults/db.json`)).value())
-	})
-}
-initAPI()
 
 const getKBs = () => {
 	return `${(bytesLoaded / 1000 / ((Date.now() - cycleStartTime) / 1000)).toFixed(2)}kB/s`
@@ -41,20 +18,11 @@ const axios = require("axios").create({
 		"Cache-Control"	: "max-age=0"
 	},
 	validateStatus: function(status) {
-		//return status === 200 || status === 304
 		return status === 200
 	}
 })
 
-axios.interceptors.request.use(function (config) {
-	//pino.debug("sending request")
-	return config
-}, function (error) {
-	return Promise.reject(error)
-})
-
 axios.interceptors.response.use(function(res) {
-	//pino.debug("received request")
 	bytesLoaded += parseInt(res.headers["content-length"] || 0)
 	return res
 }, function(error) {
@@ -72,18 +40,19 @@ for(let i = 2; i < process.argv.length; i+=2){
 }
 OPTIONS["--pages"] = parseInt(OPTIONS["--pages"])
 
-const analyze = require("./analyze.js")
-const pino = require("./src/pino")
+
+let allBoards = require("./src/config.js").boards
+allBoards = allBoards.slice(allBoards.indexOf(OPTIONS["--from"]),allBoards.indexOf(OPTIONS["--to"]) + 1)
+//console.log(allBoards)
+if (!allBoards.length){
+	pino.fatal("invalid boards selected")
+	return
+}
 ////////////////
 // setup done //
 ////////////////
 
-const sleep = async ms => {
-	if(!ms){
-		//ms = Math.max(OPTIONS["--delay"] - (Date.now() - lastResponse),0)
-		ms = Math.max(OPTIONS["--delay"] - (Date.now() - lastRequest),0)
-	}
-	//pino.debug("sleeping",ms)
+const sleep = async (ms = Math.max(OPTIONS["--delay"] - (Date.now() - lastRequest),0)) => {
 	await new Promise(resolve => {
 		setTimeout(resolve,ms)
 	})
@@ -94,12 +63,10 @@ const getThread = async (board,threadNum,attempt = 1) => {
 		await sleep()
 		lastRequest = Date.now()
 		const res = await axios.get(`https://a.4cdn.org/${board}/thread/${threadNum}.json`)
-		lastResponse = Date.now()
 		
 		if(attempt > 1) pino.debug(`/${board}/ #${threadNum} loaded after ${attempt} attempts`)
 		return res.data
 	} catch(err){
-		lastResponse = Date.now()
 		pino.warn(err.message,`/${board}/ #${threadNum} failed at attempt ${attempt}`)
 		if(attempt >= 2) return null
 		if(err.response && err.response.status == 404) return null
@@ -109,7 +76,7 @@ const getThread = async (board,threadNum,attempt = 1) => {
 
 const handleCatalog = async (board,catalog) => {
 	/* eslint-disable no-await-in-loop */
-	const boardDB = low(new FileSync(`rawData/${board}.json`))
+	const boardDB = db.getBoardDB(board)
 	catalog = catalog.slice(0,OPTIONS["--pages"])
 		
 	const newThreads = {}
@@ -118,15 +85,12 @@ const handleCatalog = async (board,catalog) => {
 	for(let page of catalog.reverse()){//start from the end of the catalog, otherwise threads might be pushed off in the meantime
 		for(let catalogThread of page.threads.reverse()){ // same thing, start from the back
 			threadCount[0]++
-
 			//check if thread in the DB is still fresh
 			//TODO: remove soon, temp workaround since the object layout changed
 			const existingThread = boardDB.get(String(catalogThread.no),null).value() || boardDB.get("threads."+ String(catalogThread.no),null).value()
-			//console.log("existing",existingThread)
 			if(existingThread && existingThread.posts[existingThread.posts.length - 1].time == catalogThread.last_modified){
 				existingThread.snapTime = Date.now()
 				newThreads[String(catalogThread.no)] = existingThread
-				//pino.debug(`/${board}/ #${catalogThread.no} was still fresh`)
 			}else{
 				// fetch the thread 
 				const threadContent = await getThread(board,catalogThread.no)
@@ -150,7 +114,7 @@ const handleCatalog = async (board,catalog) => {
 			threads: newThreads
 		}).write()
 		pino.debug(`/${board}/ threads saved to disk`)
-		analyze(board,newThreads,snapTime,duration)
+		analyze(board,boardDB)
 	}else{
 		pino.error(`/${board}/ had too many failed requests ${threadFails}/${threadCount[1]}. Not writing threads to disk !!!`)
 	}
@@ -167,47 +131,51 @@ const getCatalog = async index => {
 		await sleep()
 		lastRequest = Date.now()
 		const res = await axios.get(`https://a.4cdn.org/${board}/catalog.json`)
-		lastResponse = Date.now()
 		
 		pino.debug(`/${board}/ catalog loaded | ${getKBs()}`)
 
 		await handleCatalog(board,res.data)
 		getCatalog(index + 1)
 	} catch(err){
-		lastResponse = Date.now()
 		pino.error(err.message,"Retrying in 5 seconds . . .")
 		await sleep(5000)
 		getCatalog(index)
 	}
 }
 
-let allBoards = require("./src/config.js").boards
-allBoards = allBoards.slice(allBoards.indexOf(OPTIONS["--from"]),allBoards.indexOf(OPTIONS["--to"]) + 1)
-//console.log(allBoards)
-if (!allBoards.length){
-	pino.fatal("invalid boards selected")
-	return
-}
-
-pino.info("⏳   Checking for oldest raw data. This might take a few seconds.")
-
-let oldestBoard = allBoards[0]
-let oldestTime = Date.now()
-
-for(let board of allBoards){
-	const file = `rawData/${board}.json`
-	if(!fs.existsSync(file)){
-		oldestBoard = board
-		break
+const main = async () => {
+	const convertOldMetadata = require("./src/convertOldMetadata")
+	pino.info("⏳   Starting old metaData conversion")
+	for(let board of allBoards){
+		await convertOldMetadata(board)
 	}
-	const boardDB = low(new FileSync(`rawData/${board}.json`))
-	const snapTime = boardDB.get("snapTime").value() || 0
 	
-	if(snapTime < oldestTime){
-		oldestBoard = board
-		oldestTime = snapTime
+	const regenerate = require("./regenerate")
+	pino.info("⏳   Starting regeneration")
+	await regenerate()
+	
+	pino.info("⏳   Checking for oldest raw data. This might take a few seconds.")
+	
+	let oldestBoard = allBoards[0]
+	let oldestTime = Date.now()
+	
+	for(let board of allBoards){
+		const file = `rawData/${board}.json`
+		if(!fs.existsSync(file)){
+			oldestBoard = board
+			break
+		}
+		const boardDB = db.getBoardDB(board)
+		const snapTime = boardDB.get("snapTime").value() || 0
+		
+		if(snapTime < oldestTime){
+			oldestBoard = board
+			oldestTime = snapTime
+		}
 	}
+	const oldestIndex = allBoards.indexOf(oldestBoard)
+	pino.info(`Oldest board is ${oldestBoard}. Age ${((Date.now() - oldestTime) / (1000 * 60 * 60)).toFixed(2)} hours. Starting from index ${oldestIndex}`)
+	getCatalog(oldestIndex)
 }
-const oldestIndex = allBoards.indexOf(oldestBoard)
-pino.info(`Oldest board is ${oldestBoard}. Age ${((Date.now() - oldestTime) / (1000 * 60 * 60)).toFixed(2)} hours. Starting from index ${oldestIndex}`)
-getCatalog(oldestIndex)
+
+main()

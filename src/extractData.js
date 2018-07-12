@@ -1,87 +1,78 @@
-//const low = require('lowdb')
-//const FileSync = require('lowdb/adapters/FileSync')
 const config = require("./config")
 const Entities = require('html-entities').Html5Entities
 const entities = new Entities()
 
 const {commentsDB,metaDataDB} = require("./db")
 
-const main = async (board,rawData,snapTime,duration,writeToDB = true) => {
-	console.log(`⏳   /${board}/ extracting data`)
+//const main = async (board,rawData,snapTime,duration,writeToDB = true) => {
+const main = async (board,rawData,writeToDB = true) => {	
+	//console.log(`⏳   /${board}/ extracting from rawData`)
 	console.time("extract")
-	const commentSaveCutOff = snapTime / 1000 - config.commentsSaveSeconds
-	const commentOldButVisibleCutOff = snapTime / 1000 - config.commentsAnalyzeSeconds
+	const commentSaveCutOff = rawData.snapTime / 1000 - config.commentsSaveSeconds
+	const commentOldButVisibleCutOff = rawData.snapTime / 1000 - config.commentsAnalyzeSeconds
 	const metaData = {
-		threads: 0,
-		repliesInThread: [],
-		repliesWithText: [],
-		images: [],
-		OPCharacters: [],
-		charactersByPost: [],
-		charactersByThread: [],
-		threadAgeHours: [],
-		repliesPerMinute: [],
-		postersPerThread: [],
-		postsByPoster: [], // per thread
+		snapTime: rawData.snapTime,
+		duration: rawData.duration, //default to 60 minutes in analysis
+		totalThreads: 0,
+		totalPosts: 0,
+		totalReplies: 0,
+		totalRepliesWithText: 0,
+		totalRepliesWithImages: 0,
+		totalOPLength: 0,
+		totalThreadsWithTitles: 0,
+		totalTextLength: 0,
+		totalThreadAgeHours: 0,
+		oldestThreadAgeHours: 0,
+		totalPostersPerThread: 0 // just the sum of unique per thread
 	}
 	const commentOps = []
 	const allVisibleComments = []
 	const oldButVisibleComments = []
 	
-	for(let threadNum in rawData){
+	for(let threadNum in rawData.threads){
 		//console.log(board,threadNum)
-		const thread = rawData[threadNum]
+		const thread = rawData.threads[threadNum]
 		const OP = thread.posts[0]
 		if(OP.closed || OP.sticky) continue
-		const threadAgeSeconds = thread.snapTime / 1000 - OP.time
+		const threadAgeHours = (thread.snapTime / 1000 - OP.time) / (60 * 60)
 		
-		metaData.threads++
-		metaData.repliesInThread.push(OP.replies)
-		metaData.images.push(OP.images)
-
-		// Check length of posts and differentiate between charsByPost and charsByThread 
-		let newCharacters = 0
-		let repliesWithText = 0
-		for(let i = 0; i < thread.posts.length; i++){ // skip the OP post
+		metaData.totalThreads++
+		metaData.totalPosts += thread.posts.length
+		metaData.totalReplies += OP.replies
+		//metaData.totalRepliesWithText // in post loop
+		metaData.totalRepliesWithImages += OP.images
+		//totalOPLength // in post loop
+		//totalThreadsWithTitles // in post loop
+		//totalTextLength // in post loop
+		metaData.totalThreadAgeHours += threadAgeHours
+		metaData.oldestThreadAgeHours = Math.max(metaData.oldestThreadAgeHours,threadAgeHours)
+		//console.log(metaData.oldestThreadAgeHours,threadAgeHours)
+		metaData.totalPostersPerThread += OP.unique_ips
+		
+		for(let i = 0; i < thread.posts.length; i++){
 			const post = thread.posts[i]
-			if(!post.com) post.com = ""
-			if(board == "p") post.com = post.com.replace(/<span class="abbr">.+<\/table>/gms,"") //removes EXIF text from /p/ posts
-			post.com = post.com.replace(/<a.*?<\/a>|<br>/gm," ") //replace post-links and linebreaks with a space
-			post.com = post.com.replace(/<.*?>/gm,"") //remove any other HTML tags; greentext-HTML, /g/ [code], etc., but its text-content is kept
-			post.com = entities.decode(post.com) //convert html entities to actual characters: "&gt;" becomes ">"
-			post.com = post.com.trim() //remove whitespace from start and end
+			if(post.sub) metaData.totalThreadsWithTitles++
 			if(post.com){
-				newCharacters += post.com.length
+				if(board == "p") post.com = post.com.replace(/<span class="abbr">.+<\/table>/gms,"") //removes EXIF text from /p/ posts
+				if(board == "sci") post.com = post.com.replace(/\[\/?math\]|\[\/?eqn\]/gms,"") //removes EXIF text from /p/ posts
+				post.com = post.com.replace(/<span class="deadlink">.*?<\/span>/gm,"") //remove deadlinks
+				post.com = post.com.replace(/<a.*?<\/a>/gm,"") //remove post-links
+				post.com = post.com.replace(/<br>/gm," ") //replace linebreaks with a space
+				post.com = post.com.replace(/<.*?>/gm,"") //remove any other HTML tags; greentext-HTML, /g/ [code], etc., but its text-content is kept
+				post.com = entities.decode(post.com) //convert html entities to actual characters: "&gt;" becomes ">"
+				post.com = post.com.trim() //remove whitespace from start and end
+				metaData.totalTextLength += post.com.length
 				if (i == 0){
-					metaData.OPCharacters.push(post.com.length)
-				}else{
-					repliesWithText++
+					metaData.totalOPLength += post.com.length
+				}else if(post.com){
+					metaData.totalRepliesWithText++
 				}
-			}
-			//if(board == "p") console.log(post.com)
-			metaData.charactersByPost.push(post.com.length)
 
-			allVisibleComments.push(post.com)
-			if(post.time > commentSaveCutOff) commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
-			if(post.time < commentOldButVisibleCutOff) oldButVisibleComments.push(post.com)
-			/*
-			if(post.time < commentSaveCutOff){
-				oldButVisibleComments.push(post.com)
-			}else{
-				commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
+				allVisibleComments.push(post.com)
+				if(post.time > commentSaveCutOff) commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
+				if(post.time < commentOldButVisibleCutOff) oldButVisibleComments.push(post.com)
 			}
-			*/
-			
-			//commentOps.push({type: 'put', key: [board,post.time,Math.random()], value: post.com})
-			//commentOps.push({type: 'put', key: [board,post.time,Math.random()], value: post.com})
 		}
-		metaData.charactersByThread.push(newCharacters / thread.posts.length)
-		metaData.repliesWithText.push(repliesWithText)
-
-		metaData.threadAgeHours.push(threadAgeSeconds / 3600)
-		metaData.repliesPerMinute.push(OP.replies / (threadAgeSeconds / 60))
-		metaData.postersPerThread.push(OP.unique_ips || 0)
-		metaData.postsByPoster.push(thread.posts.length / OP.unique_ips || 0)
 	}
 
 	try{
@@ -89,13 +80,10 @@ const main = async (board,rawData,snapTime,duration,writeToDB = true) => {
 		//console.time("commentOps")
 		if(writeToDB){
 			await commentsDB.batch(commentOps)
-			await metaDataDB.put([board,snapTime],{
-				snapTime,
-				duration,
-				metaData
-			})
+			await metaDataDB.put([board,rawData.snapTime],metaData)
+			console.log(`✅   /${board}/ rawData extraction done. Wrote metaData and ${commentOps.length} comments to DB`)
 		}else{
-			console.log(`/${board}/ extraction skipping DB write`)
+			console.log(`✅   /${board}/ rawData extraction done. ***skipping DB write***`)
 		}
 		//console.timeEnd("commentOps")
 	}catch(err){
@@ -115,7 +103,6 @@ const main = async (board,rawData,snapTime,duration,writeToDB = true) => {
 	//console.log("com older than a day",oldButVisibleComments.length)
 	return {
 		metaData,
-		allVisibleComments,
 		oldButVisibleComments
 	}
 }
