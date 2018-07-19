@@ -1,5 +1,5 @@
 module.exports = {
-	commentsSaveSeconds: 60 * 60 * 24 * 7,
+	commentsSaveSeconds: 60 * 60 * 24 * 2,
 	commentsAnalyzeSeconds: 60 * 60 * 24 * 1,
 	boards: [
 		'3',

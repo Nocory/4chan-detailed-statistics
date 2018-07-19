@@ -1,1226 +1,1082 @@
 {
   "3": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 165.54033068462434,
-      "dailyPeakPostsPerMinute_mean": 0.20776030492628236,
-      "OPLength_mean": 224.53691275167785,
-      "repliesWithImages_ratio": 0.20216179699375106,
-      "repliesWithText_ratio": 0.9614929910488094,
-      "repliesPerThread_mean": 39.738255033557046,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 166.61894563426688,
-      "postersPerThread_mean": 20.107382550335572,
-      "postsPerPoster_mean": 2.026034712950601,
-      "threadAgeHours_mean": 560.7987391200627,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239976848
+    "metaAnalysis": {
+      "OPLength_mean": 217.37333333333336,
+      "repliesWithImages_ratio": 0.2080078125,
+      "repliesWithText_ratio": 0.9632161458333334,
+      "repliesPerThread_mean": 40.96,
+      "threadsWithTitles_ratio": 0.46,
+      "postLength_mean": 168.17095646647599,
+      "postersPerThread_mean": 20.333333333333332,
+      "postsPerPoster_mean": 2.0636065573770495,
+      "threadAgeHours_mean": 607.8424931685172,
+      "oldestThreadAgeHours": 9172.488274444475,
+      "created": 1532023027788
+    }
+  },
+  "v": {
+    "metaAnalysis": {
+      "OPLength_mean": 125.84,
+      "repliesWithImages_ratio": 0.2524643320363165,
+      "repliesWithText_ratio": 0.9653047989623865,
+      "repliesPerThread_mean": 102.8,
+      "threadsWithTitles_ratio": 0.2,
+      "postLength_mean": 111.04739884393064,
+      "postersPerThread_mean": 43.38666666666667,
+      "postsPerPoster_mean": 2.392440073755378,
+      "threadAgeHours_mean": 2.666913018519349,
+      "oldestThreadAgeHours": 15.46129750000106,
+      "created": 1532025608451
+    }
+  },
+  "vg": {
+    "metaAnalysis": {
+      "OPLength_mean": 1191.48,
+      "repliesWithImages_ratio": 0.23242901561485635,
+      "repliesWithText_ratio": 0.9606895137868589,
+      "repliesPerThread_mean": 390.2266666666667,
+      "threadsWithTitles_ratio": 1,
+      "postLength_mean": 102.91629745756936,
+      "postersPerThread_mean": 69.86666666666667,
+      "postsPerPoster_mean": 5.599618320610687,
+      "threadAgeHours_mean": 32.658719694444436,
+      "oldestThreadAgeHours": 170.28658694446088,
+      "created": 1532024778114
+    }
+  },
+  "vip": {
+    "metaAnalysis": {
+      "OPLength_mean": 113.71333333333334,
+      "repliesWithImages_ratio": 0.3612155388471178,
+      "repliesWithText_ratio": 0.8023182957393483,
+      "repliesPerThread_mean": 21.28,
+      "threadsWithTitles_ratio": 0.3,
+      "postLength_mean": 55.459605026929985,
+      "postersPerThread_mean": 0,
+      "postsPerPoster_mean": null,
+      "threadAgeHours_mean": 1806.4452704277842,
+      "oldestThreadAgeHours": 9086.014425833358,
+      "created": 1532021792957
+    }
+  },
+  "vp": {
+    "metaAnalysis": {
+      "OPLength_mean": 165.89333333333332,
+      "repliesWithImages_ratio": 0.31084531648971914,
+      "repliesWithText_ratio": 0.8840209649240693,
+      "repliesPerThread_mean": 49.60666666666666,
+      "threadsWithTitles_ratio": 0.2733333333333333,
+      "postLength_mean": 100.11842971940455,
+      "postersPerThread_mean": 23.886666666666667,
+      "postsPerPoster_mean": 2.118615685180017,
+      "threadAgeHours_mean": 21.98485361111387,
+      "oldestThreadAgeHours": 166.98796277774704,
+      "created": 1532022104585
+    }
+  },
+  "vr": {
+    "metaAnalysis": {
+      "OPLength_mean": 236.5704697986577,
+      "repliesWithImages_ratio": 0.17064128256513028,
+      "repliesWithText_ratio": 0.9705410821643287,
+      "repliesPerThread_mean": 66.97986577181207,
+      "threadsWithTitles_ratio": 0.3825503355704698,
+      "postLength_mean": 180.60815480304078,
+      "postersPerThread_mean": 31.18120805369127,
+      "postsPerPoster_mean": 2.1801549720189413,
+      "threadAgeHours_mean": 119.4819279586108,
+      "oldestThreadAgeHours": 1281.3853019444148,
+      "created": 1532022375468
+    }
+  },
+  "w": {
+    "metaAnalysis": {
+      "OPLength_mean": 113.06711409395973,
+      "repliesWithImages_ratio": 0.7367424242424243,
+      "repliesWithText_ratio": 0.4966108452950558,
+      "repliesPerThread_mean": 67.32885906040269,
+      "threadsWithTitles_ratio": 0.738255033557047,
+      "postLength_mean": 34.74422944700913,
+      "postersPerThread_mean": 30.120805369127517,
+      "postsPerPoster_mean": 2.26849376114082,
+      "threadAgeHours_mean": 1587.0137548713662,
+      "oldestThreadAgeHours": 8076.242811111079,
+      "created": 1532022387080
+    }
+  },
+  "wg": {
+    "metaAnalysis": {
+      "OPLength_mean": 98.93333333333334,
+      "repliesWithImages_ratio": 0.7678347330823438,
+      "repliesWithText_ratio": 0.45245680084950285,
+      "repliesPerThread_mean": 69.06,
+      "threadsWithTitles_ratio": 0.7533333333333334,
+      "postLength_mean": 39.343705395375395,
+      "postersPerThread_mean": 27.94666666666667,
+      "postsPerPoster_mean": 2.5069179389312977,
+      "threadAgeHours_mean": 310.83636475555505,
+      "oldestThreadAgeHours": 1628.5950330555438,
+      "created": 1532022403112
+    }
+  },
+  "wsg": {
+    "metaAnalysis": {
+      "OPLength_mean": 98.84,
+      "repliesWithImages_ratio": 0.4013549311677596,
+      "repliesWithText_ratio": 0.6923611412689451,
+      "repliesPerThread_mean": 153.51333333333332,
+      "threadsWithTitles_ratio": 0.7066666666666667,
+      "postLength_mean": 57.56659619450318,
+      "postersPerThread_mean": 76.85333333333334,
+      "postsPerPoster_mean": 2.0104961832061066,
+      "threadAgeHours_mean": 878.8469890444416,
+      "oldestThreadAgeHours": 8153.95244750003,
+      "created": 1532022756205
+    }
+  },
+  "wsr": {
+    "metaAnalysis": {
+      "OPLength_mean": 203.29999999999998,
+      "repliesWithImages_ratio": 0.23509369676320274,
+      "repliesWithText_ratio": 0.8773424190800682,
+      "repliesPerThread_mean": 3.913333333333333,
+      "threadsWithTitles_ratio": 0.48,
+      "postLength_mean": 118.4640434192673,
+      "postersPerThread_mean": 3.0533333333333332,
+      "postsPerPoster_mean": 1.6091703056768558,
+      "threadAgeHours_mean": 23.506435744438356,
+      "oldestThreadAgeHours": 146.26473805553383,
+      "created": 1532022772808
+    }
+  },
+  "x": {
+    "metaAnalysis": {
+      "OPLength_mean": 335.8466666666667,
+      "repliesWithImages_ratio": 0.2178645149183712,
+      "repliesWithText_ratio": 0.9397635578907864,
+      "repliesPerThread_mean": 35.526666666666664,
+      "threadsWithTitles_ratio": 0.48000000000000004,
+      "postLength_mean": 197.5929914217923,
+      "postersPerThread_mean": 18.513333333333332,
+      "postsPerPoster_mean": 1.9729924378826071,
+      "threadAgeHours_mean": 18.26116542592888,
+      "oldestThreadAgeHours": 117.11519805557198,
+      "created": 1532022853555
+    }
+  },
+  "y": {
+    "metaAnalysis": {
+      "OPLength_mean": 92.93333333333334,
+      "repliesWithImages_ratio": 0.677178368372339,
+      "repliesWithText_ratio": 0.4715060161311649,
+      "repliesPerThread_mean": 100.84,
+      "threadsWithTitles_ratio": 0.8933333333333333,
+      "postLength_mean": 44.22623723487824,
+      "postersPerThread_mean": 34.99333333333334,
+      "postsPerPoster_mean": 2.91026862259478,
+      "threadAgeHours_mean": 1176.6784131611075,
+      "oldestThreadAgeHours": 7767.352355833318,
+      "created": 1532023017695
     }
   },
   "a": {
     "metaAnalysis": {
-      "postsPerDay_mean": 45362.818605106746,
-      "dailyPeakPostsPerMinute_mean": 41.176728472366406,
-      "OPLength_mean": 109.48459429258746,
-      "repliesWithImages_ratio": 0.2874696969902172,
-      "repliesWithText_ratio": 0.9224158981355265,
-      "repliesPerThread_mean": 109.56295658013612,
-      "threadsWithTitles_ratio": -6129.062465069977,
-      "postLength_mean": 90.67565291355731,
-      "postersPerThread_mean": 40.982020684712,
-      "postsPerPoster_mean": 2.697840534285336,
-      "threadAgeHours_mean": 8.397734501065573,
-      "oldestThreadAgeHours": 84.34699861109257,
-      "created": 1531240374303
-    }
-  },
-  "sp": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 64908.66908381689,
-      "dailyPeakPostsPerMinute_mean": 96.96340692122293,
-      "OPLength_mean": 130.24666666666667,
-      "repliesWithImages_ratio": 0.20009591176117972,
-      "repliesWithText_ratio": 0.9665507732885745,
-      "repliesPerThread_mean": 55.60666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 94.06230126015781,
-      "postersPerThread_mean": 26.433333333333334,
-      "postsPerPoster_mean": 2.1414880201765447,
-      "threadAgeHours_mean": 3.970626096297193,
-      "oldestThreadAgeHours": 0,
-      "created": 1531238663767
-    }
-  },
-  "vg": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 95088.33390700057,
-      "dailyPeakPostsPerMinute_mean": 83.31534310593807,
-      "OPLength_mean": 1143.1333333333334,
-      "repliesWithImages_ratio": 0.2437725836577234,
-      "repliesWithText_ratio": 0.9544748372231047,
-      "repliesPerThread_mean": 381.91333333333336,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 103.190608840991,
-      "postersPerThread_mean": 71.74,
-      "postsPerPoster_mean": 5.33751510082706,
-      "threadAgeHours_mean": 31.811035140740447,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239625545
+      "OPLength_mean": 101.21333333333332,
+      "repliesWithImages_ratio": 0.29105335786568537,
+      "repliesWithText_ratio": 0.9228955841766329,
+      "repliesPerThread_mean": 115.94666666666667,
+      "threadsWithTitles_ratio": 0.5,
+      "postLength_mean": 89.77704936723293,
+      "postersPerThread_mean": 42.64666666666667,
+      "postsPerPoster_mean": 2.7422229169923398,
+      "threadAgeHours_mean": 9.128844322221806,
+      "oldestThreadAgeHours": 99.93059750000636,
+      "created": 1532023006205
     }
   },
   "aco": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 2369.743308172833,
-      "dailyPeakPostsPerMinute_mean": 2.380279696296691,
-      "OPLength_mean": 140.9387755102041,
-      "repliesWithImages_ratio": 0.6372825033461024,
-      "repliesWithText_ratio": 0.5265611298287719,
-      "repliesPerThread_mean": 147.39455782312925,
-      "threadsWithTitles_ratio": -6802.714285714285,
-      "postLength_mean": 51.77010176950582,
-      "postersPerThread_mean": 44.97278911564626,
-      "postsPerPoster_mean": 3.2996520949931933,
-      "threadAgeHours_mean": 415.0356873091586,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240410330
+    "metaAnalysis": {
+      "OPLength_mean": 168.56666666666666,
+      "repliesWithImages_ratio": 0.6458558558558558,
+      "repliesWithText_ratio": 0.5340090090090089,
+      "repliesPerThread_mean": 148,
+      "threadsWithTitles_ratio": 0.8799999999999999,
+      "postLength_mean": 56.296912751677844,
+      "postersPerThread_mean": 46.086666666666666,
+      "postsPerPoster_mean": 3.233039201504412,
+      "threadAgeHours_mean": 391.84717034999625,
+      "oldestThreadAgeHours": 1795.5534463889069,
+      "created": 1532023081397
     }
   },
   "adv": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 3683.6815149306676,
-      "dailyPeakPostsPerMinute_mean": 3.472713092070563,
-      "OPLength_mean": 460.5933333333333,
-      "repliesWithImages_ratio": 0.07041139240506329,
-      "repliesWithText_ratio": 0.9932753164556962,
-      "repliesPerThread_mean": 16.85333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 211.67438386855864,
-      "postersPerThread_mean": 10.046666666666667,
-      "postsPerPoster_mean": 1.7770404777704047,
-      "threadAgeHours_mean": 9.730035088889686,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240467868
+    "metaAnalysis": {
+      "OPLength_mean": 457.26666666666665,
+      "repliesWithImages_ratio": 0.05851251321818823,
+      "repliesWithText_ratio": 0.9950652097285864,
+      "repliesPerThread_mean": 18.913333333333334,
+      "threadsWithTitles_ratio": 0.3933333333333333,
+      "postLength_mean": 234.8921995313023,
+      "postersPerThread_mean": 11.106666666666666,
+      "postsPerPoster_mean": 1.7929171668667467,
+      "threadAgeHours_mean": 10.18774324814655,
+      "oldestThreadAgeHours": 92.26072888890903,
+      "created": 1532023135624
     }
   },
   "an": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1081.610055152859,
-      "dailyPeakPostsPerMinute_mean": 1.1368972464763625,
-      "OPLength_mean": 197.76,
-      "repliesWithImages_ratio": 0.314388393451351,
-      "repliesWithText_ratio": 0.889791028883269,
-      "repliesPerThread_mean": 50.086666666666666,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 130.19300535038496,
-      "postersPerThread_mean": 26.06,
-      "postsPerPoster_mean": 1.9603479150677923,
-      "threadAgeHours_mean": 132.3913803407502,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240492434
+    "metaAnalysis": {
+      "OPLength_mean": 275.86,
+      "repliesWithImages_ratio": 0.2637462235649547,
+      "repliesWithText_ratio": 0.9365558912386707,
+      "repliesPerThread_mean": 44.13333333333333,
+      "threadsWithTitles_ratio": 0.38,
+      "postLength_mean": 143.38064992614477,
+      "postersPerThread_mean": 22.953333333333337,
+      "postsPerPoster_mean": 1.966308451931455,
+      "threadAgeHours_mean": 104.81224194629152,
+      "oldestThreadAgeHours": 2119.6849266666836,
+      "created": 1532023164154
     }
   },
   "asp": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 5336.158333186645,
-      "dailyPeakPostsPerMinute_mean": 5.5072971707720955,
-      "OPLength_mean": 161.99319727891157,
-      "repliesWithImages_ratio": 0.2716432148819461,
-      "repliesWithText_ratio": 0.8945862151204388,
-      "repliesPerThread_mean": 28.523809523809526,
-      "threadsWithTitles_ratio": -6802.714285714285,
-      "postLength_mean": 79.74930875576037,
-      "postersPerThread_mean": 15.306122448979592,
-      "postsPerPoster_mean": 1.9288888888888889,
-      "threadAgeHours_mean": 17.95775899092356,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240546464
+    "metaAnalysis": {
+      "OPLength_mean": 200.54666666666665,
+      "repliesWithImages_ratio": 0.24716505669886601,
+      "repliesWithText_ratio": 0.9120117597648048,
+      "repliesPerThread_mean": 31.746666666666666,
+      "threadsWithTitles_ratio": 0.2733333333333334,
+      "postLength_mean": 83.13477198697068,
+      "postersPerThread_mean": 17.646666666666665,
+      "postsPerPoster_mean": 1.8556856819040426,
+      "threadAgeHours_mean": 19.09092049444297,
+      "oldestThreadAgeHours": 313.324829166664,
+      "created": 1532023240415
     }
   },
   "b": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 93168.73560051748,
-      "dailyPeakPostsPerMinute_mean": 80.71058665187884,
-      "OPLength_mean": 117.86,
-      "repliesWithImages_ratio": 0.3644774761110268,
-      "repliesWithText_ratio": 0.7871985439102078,
-      "repliesPerThread_mean": 43.95333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 62.95076375500519,
-      "postersPerThread_mean": 18.506666666666668,
-      "postsPerPoster_mean": 2.429034582132565,
-      "threadAgeHours_mean": 1.3419260055577318,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240697558
+    "metaAnalysis": {
+      "OPLength_mean": 115.88666666666667,
+      "repliesWithImages_ratio": 0.3513891044544467,
+      "repliesWithText_ratio": 0.819649231724352,
+      "repliesPerThread_mean": 42.95333333333333,
+      "threadsWithTitles_ratio": 0,
+      "postLength_mean": 60.6720764447141,
+      "postersPerThread_mean": 18.419999999999998,
+      "postsPerPoster_mean": 2.3861744480636986,
+      "threadAgeHours_mean": 1.3196512037047636,
+      "oldestThreadAgeHours": 10.752928055524826,
+      "created": 1532024082577
     }
   },
   "bant": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 11298.390058213625,
-      "dailyPeakPostsPerMinute_mean": 13.677613690658205,
-      "OPLength_mean": 74.68,
-      "repliesWithImages_ratio": 0.41345553009789626,
-      "repliesWithText_ratio": 0.8800249947927515,
-      "repliesPerThread_mean": 32.00666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 57.405372651989495,
-      "postersPerThread_mean": 14.593333333333334,
-      "postsPerPoster_mean": 2.261763362265875,
-      "threadAgeHours_mean": 10.526519505546727,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241516252
+    "metaAnalysis": {
+      "OPLength_mean": 125.56666666666666,
+      "repliesWithImages_ratio": 0.3216661845530807,
+      "repliesWithText_ratio": 0.9326005206826729,
+      "repliesPerThread_mean": 23.046666666666667,
+      "threadsWithTitles_ratio": 0.16666666666666666,
+      "postLength_mean": 64.62101469365123,
+      "postersPerThread_mean": 13.333333333333334,
+      "postsPerPoster_mean": 1.8034999999999999,
+      "threadAgeHours_mean": 10.338651229627493,
+      "oldestThreadAgeHours": 281.12154055555663,
+      "created": 1532023335459
     }
   },
   "biz": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 12600.832126519359,
-      "dailyPeakPostsPerMinute_mean": 11.72084462604332,
-      "OPLength_mean": 249.14666666666668,
-      "repliesWithImages_ratio": 0.1716612377850163,
-      "repliesWithText_ratio": 0.9648208469055375,
-      "repliesPerThread_mean": 20.466666666666665,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 136.90869565217392,
-      "postersPerThread_mean": 13.133333333333333,
-      "postsPerPoster_mean": 1.634517766497462,
-      "threadAgeHours_mean": 3.6659993111129188,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241651369
+    "metaAnalysis": {
+      "OPLength_mean": 208.07999999999998,
+      "repliesWithImages_ratio": 0.1685073031706448,
+      "repliesWithText_ratio": 0.9768436052725329,
+      "repliesPerThread_mean": 18.71333333333333,
+      "threadsWithTitles_ratio": 0.43333333333333335,
+      "postLength_mean": 140.49442002029085,
+      "postersPerThread_mean": 12.253333333333334,
+      "postsPerPoster_mean": 1.6088139281828073,
+      "threadAgeHours_mean": 2.4178478351849098,
+      "oldestThreadAgeHours": 21.958197499977217,
+      "created": 1532025386532
     }
   },
   "c": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 859.9592714595319,
-      "dailyPeakPostsPerMinute_mean": 0.949837185963407,
-      "OPLength_mean": 88.88666666666667,
-      "repliesWithImages_ratio": 0.9430500259650337,
-      "repliesWithText_ratio": 0.24199411459234896,
-      "repliesPerThread_mean": 77.02666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 21.189507860560493,
-      "postersPerThread_mean": 17.586666666666666,
-      "postsPerPoster_mean": 4.43669446550417,
-      "threadAgeHours_mean": 380.31377703517495,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241676350
+    "metaAnalysis": {
+      "OPLength_mean": 86.96644295302013,
+      "repliesWithImages_ratio": 0.9497504732404062,
+      "repliesWithText_ratio": 0.23791085871622783,
+      "repliesPerThread_mean": 78,
+      "threadsWithTitles_ratio": 0.8926174496644295,
+      "postLength_mean": 23.268371421289608,
+      "postersPerThread_mean": 18.248322147651006,
+      "postsPerPoster_mean": 4.32916513424053,
+      "threadAgeHours_mean": 429.38431402124894,
+      "oldestThreadAgeHours": 1585.076614722212,
+      "created": 1532023370497
     }
   },
   "cgl": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 995.4864366604497,
-      "dailyPeakPostsPerMinute_mean": 1.09715467688241,
-      "OPLength_mean": 263.86577181208054,
-      "repliesWithImages_ratio": 0.2509679340812072,
-      "repliesWithText_ratio": 0.9190906383401172,
-      "repliesPerThread_mean": 135.20805369127515,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 161.21059374230106,
-      "postersPerThread_mean": 59.36241610738255,
-      "postsPerPoster_mean": 2.294516676088185,
-      "threadAgeHours_mean": 666.6608199161036,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241706341
+    "metaAnalysis": {
+      "OPLength_mean": 286.52027027027026,
+      "repliesWithImages_ratio": 0.2394033300068281,
+      "repliesWithText_ratio": 0.9129681180734281,
+      "repliesPerThread_mean": 128.6418918918919,
+      "threadsWithTitles_ratio": 0.8243243243243243,
+      "postLength_mean": 175.69250013029657,
+      "postersPerThread_mean": 57.34459459459459,
+      "postsPerPoster_mean": 2.260751737952162,
+      "threadAgeHours_mean": 661.3394144782312,
+      "oldestThreadAgeHours": 6058.5390730555855,
+      "created": 1532023401488
     }
   },
   "ck": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 4994.486106246595,
-      "dailyPeakPostsPerMinute_mean": 4.890976788313804,
-      "OPLength_mean": 127.84,
-      "repliesWithImages_ratio": 0.16522856618322013,
-      "repliesWithText_ratio": 0.9629153662566551,
-      "repliesPerThread_mean": 36.31333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 112.28747543326782,
-      "postersPerThread_mean": 24.073333333333334,
-      "postsPerPoster_mean": 1.5499861534201052,
-      "threadAgeHours_mean": 18.79167597222902,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241768402
+    "metaAnalysis": {
+      "OPLength_mean": 127.85333333333332,
+      "repliesWithImages_ratio": 0.17328370554177003,
+      "repliesWithText_ratio": 0.9602977667493796,
+      "repliesPerThread_mean": 32.24,
+      "threadsWithTitles_ratio": 0.29333333333333333,
+      "postLength_mean": 108.39290012033695,
+      "postersPerThread_mean": 21.220000000000002,
+      "postsPerPoster_mean": 1.5664467483506126,
+      "threadAgeHours_mean": 16.781081064815442,
+      "oldestThreadAgeHours": 131.72891694446406,
+      "created": 1532023476365
     }
   },
   "cm": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 412.0895919344123,
-      "dailyPeakPostsPerMinute_mean": 0.5225880723131154,
-      "OPLength_mean": 75.58783783783784,
-      "repliesWithImages_ratio": 0.7838662790697675,
-      "repliesWithText_ratio": 0.41984011627906975,
-      "repliesPerThread_mean": 92.97297297297297,
-      "threadsWithTitles_ratio": -6756.75,
-      "postLength_mean": 43.22986770204199,
-      "postersPerThread_mean": 26.06756756756757,
-      "postsPerPoster_mean": 3.6049766718506997,
-      "threadAgeHours_mean": 1378.1734689771047,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241778383
+    "metaAnalysis": {
+      "OPLength_mean": 56.54666666666667,
+      "repliesWithImages_ratio": 0.8034338038916444,
+      "repliesWithText_ratio": 0.38985120183136207,
+      "repliesPerThread_mean": 87.36666666666666,
+      "threadsWithTitles_ratio": 0.8333333333333334,
+      "postLength_mean": 41.187099207846096,
+      "postersPerThread_mean": 23.57333333333333,
+      "postsPerPoster_mean": 3.748585972850679,
+      "threadAgeHours_mean": 1298.5390806537048,
+      "oldestThreadAgeHours": 9676.66811944445,
+      "created": 1532023492177
     }
   },
   "co": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 19208.00796038824,
-      "dailyPeakPostsPerMinute_mean": 18.324505987942466,
-      "OPLength_mean": 164.30666666666667,
-      "repliesWithImages_ratio": 0.27808510638297873,
-      "repliesWithText_ratio": 0.9068085106382979,
-      "repliesPerThread_mean": 94,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 129.63150877192982,
-      "postersPerThread_mean": 39.79333333333334,
-      "postsPerPoster_mean": 2.3873345619031663,
-      "threadAgeHours_mean": 16.35618879259031,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241902528
+    "metaAnalysis": {
+      "OPLength_mean": 177.14965986394557,
+      "repliesWithImages_ratio": 0.2951354880835782,
+      "repliesWithText_ratio": 0.9040972902383285,
+      "repliesPerThread_mean": 83.3469387755102,
+      "threadsWithTitles_ratio": 0.43537414965986393,
+      "postLength_mean": 111.22235664166465,
+      "postersPerThread_mean": 35.63945578231292,
+      "postsPerPoster_mean": 2.3666730292040468,
+      "threadAgeHours_mean": 11.748415867343416,
+      "oldestThreadAgeHours": 145.02592416663964,
+      "created": 1532023763413
     }
   },
   "d": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1467.8836315427134,
-      "dailyPeakPostsPerMinute_mean": 1.5139389067602604,
-      "OPLength_mean": 121.66442953020135,
-      "repliesWithImages_ratio": 0.6755609167671894,
-      "repliesWithText_ratio": 0.5028709288299156,
-      "repliesPerThread_mean": 139.09395973154363,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 66.98189134808852,
-      "postersPerThread_mean": 45.691275167785236,
-      "postsPerPoster_mean": 3.066098707403055,
-      "threadAgeHours_mean": 499.6763906413117,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241944500
+    "metaAnalysis": {
+      "OPLength_mean": 127.08843537414967,
+      "repliesWithImages_ratio": 0.6842934782608696,
+      "repliesWithText_ratio": 0.4932608695652174,
+      "repliesPerThread_mean": 125.17006802721089,
+      "threadsWithTitles_ratio": 0.8843537414965986,
+      "postLength_mean": 64.59141640157438,
+      "postersPerThread_mean": 44.00000000000001,
+      "postsPerPoster_mean": 2.8675015460729743,
+      "threadAgeHours_mean": 426.82687818215754,
+      "oldestThreadAgeHours": 2642.7083508333235,
+      "created": 1532023805081
     }
   },
   "diy": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 663.7226465699272,
-      "dailyPeakPostsPerMinute_mean": 0.7205458129858113,
-      "OPLength_mean": 328.58666666666664,
-      "repliesWithImages_ratio": 0.18183338909334226,
-      "repliesWithText_ratio": 0.978588156574105,
-      "repliesPerThread_mean": 39.85333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 188.75293733681463,
-      "postersPerThread_mean": 21.8,
-      "postsPerPoster_mean": 1.874006116207951,
-      "threadAgeHours_mean": 159.52520451852516,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241965516
+    "metaAnalysis": {
+      "OPLength_mean": 369.42,
+      "repliesWithImages_ratio": 0.18081603435934143,
+      "repliesWithText_ratio": 0.9801002147458839,
+      "repliesPerThread_mean": 46.56666666666667,
+      "threadsWithTitles_ratio": 0.49333333333333335,
+      "postLength_mean": 209.87063770147162,
+      "postersPerThread_mean": 23.2,
+      "postsPerPoster_mean": 2.050287356321839,
+      "threadAgeHours_mean": 165.98042429073882,
+      "oldestThreadAgeHours": 2306.2550663889115,
+      "created": 1532023827487
     }
   },
   "e": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 384.11503557162496,
-      "dailyPeakPostsPerMinute_mean": 0.45999500149955014,
-      "OPLength_mean": 103.57333333333334,
-      "repliesWithImages_ratio": 0.77342276252358,
-      "repliesWithText_ratio": 0.4158981345629847,
-      "repliesPerThread_mean": 127.22666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 34.490069668295725,
-      "postersPerThread_mean": 41.63333333333333,
-      "postsPerPoster_mean": 3.079903923138511,
-      "threadAgeHours_mean": 1708.9323747796257,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242016215
+    "metaAnalysis": {
+      "OPLength_mean": 113.35135135135135,
+      "repliesWithImages_ratio": 0.7796699253652897,
+      "repliesWithText_ratio": 0.4042888678650268,
+      "repliesPerThread_mean": 128.55405405405406,
+      "threadsWithTitles_ratio": 0.7837837837837838,
+      "postLength_mean": 40.64895170543444,
+      "postersPerThread_mean": 41.33783783783784,
+      "postsPerPoster_mean": 3.1340307289964042,
+      "threadAgeHours_mean": 1765.8246348610983,
+      "oldestThreadAgeHours": 9713.333186666634,
+      "created": 1532023852471
     }
   },
   "f": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 167.06148261054528,
-      "dailyPeakPostsPerMinute_mean": 0.19996783673749896,
-      "OPLength_mean": 8.866666666666667,
+    "metaAnalysis": {
+      "OPLength_mean": 0.4333333333333333,
       "repliesWithImages_ratio": 0,
       "repliesWithText_ratio": 1,
-      "repliesPerThread_mean": 2.5,
-      "threadsWithTitles_ratio": -33333.3,
-      "postLength_mean": 41.01904761904762,
-      "postersPerThread_mean": 3.433333333333333,
-      "postsPerPoster_mean": 1.0194174757281553,
-      "threadAgeHours_mean": 12.182075407396866,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242023222
+      "repliesPerThread_mean": 1.4,
+      "threadsWithTitles_ratio": 0.3,
+      "postLength_mean": 49.486111111111114,
+      "postersPerThread_mean": 2.3,
+      "postsPerPoster_mean": 1.0434782608695652,
+      "threadAgeHours_mean": 7.530085453702344,
+      "oldestThreadAgeHours": 14.444021666646004,
+      "created": 1532023861467
     }
   },
   "fa": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 2419.380521978065,
-      "dailyPeakPostsPerMinute_mean": 2.3272136082146115,
-      "OPLength_mean": 104.52666666666667,
-      "repliesWithImages_ratio": 0.2851749673297517,
-      "repliesWithText_ratio": 0.9101205169159285,
-      "repliesPerThread_mean": 45.913333333333334,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 106.04732130169106,
-      "postersPerThread_mean": 27.266666666666666,
-      "postsPerPoster_mean": 1.7205378973105134,
-      "threadAgeHours_mean": 42.33939212777789,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242080276
+    "metaAnalysis": {
+      "OPLength_mean": 152.87333333333333,
+      "repliesWithImages_ratio": 0.31031795511221943,
+      "repliesWithText_ratio": 0.8873129675810474,
+      "repliesPerThread_mean": 42.77333333333333,
+      "threadsWithTitles_ratio": 0.43999999999999995,
+      "postLength_mean": 87.45385318306427,
+      "postersPerThread_mean": 25.186666666666667,
+      "postsPerPoster_mean": 1.7379565907887773,
+      "threadAgeHours_mean": 40.815462455557004,
+      "oldestThreadAgeHours": 246.49070027775235,
+      "created": 1532023926498
     }
   },
   "fit": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 13183.833624003288,
-      "dailyPeakPostsPerMinute_mean": 12.176192546829798,
-      "OPLength_mean": 192.26666666666668,
-      "repliesWithImages_ratio": 0.18378543127095398,
-      "repliesWithText_ratio": 0.9678451691557451,
-      "repliesPerThread_mean": 43.74666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 132.94919547079857,
-      "postersPerThread_mean": 26.013333333333332,
-      "postsPerPoster_mean": 1.7201435161455665,
-      "threadAgeHours_mean": 6.671370488890896,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242325819
+    "metaAnalysis": {
+      "OPLength_mean": 229.82,
+      "repliesWithImages_ratio": 0.1843143443269686,
+      "repliesWithText_ratio": 0.9772763137131135,
+      "repliesPerThread_mean": 42.24666666666666,
+      "threadsWithTitles_ratio": 0.3066666666666667,
+      "postLength_mean": 131.13149375674425,
+      "postersPerThread_mean": 27.106666666666666,
+      "postsPerPoster_mean": 1.5954254795868175,
+      "threadAgeHours_mean": 6.722137342592083,
+      "oldestThreadAgeHours": 45.65100416666932,
+      "created": 1532024229342
     }
   },
   "g": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 12867.259050580054,
-      "dailyPeakPostsPerMinute_mean": 11.678050113942673,
-      "OPLength_mean": 295.8333333333333,
-      "repliesWithImages_ratio": 0.14511232544019428,
-      "repliesWithText_ratio": 0.9735276259866423,
-      "repliesPerThread_mean": 54.9,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 128.1020870602266,
-      "postersPerThread_mean": 29.08,
-      "postsPerPoster_mean": 1.922283356258597,
-      "threadAgeHours_mean": 10.877527031482158,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242457245
+    "metaAnalysis": {
+      "OPLength_mean": 273.43333333333334,
+      "repliesWithImages_ratio": 0.16721659203393824,
+      "repliesWithText_ratio": 0.9793777987273156,
+      "repliesPerThread_mean": 56.57333333333334,
+      "threadsWithTitles_ratio": 0.45333333333333337,
+      "postLength_mean": 130.14138490041685,
+      "postersPerThread_mean": 31.3,
+      "postsPerPoster_mean": 1.8394036208732694,
+      "threadAgeHours_mean": 11.25777498888749,
+      "oldestThreadAgeHours": 70.02924611111482,
+      "created": 1532024508317
     }
   },
   "gd": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 71.27848104982206,
-      "dailyPeakPostsPerMinute_mean": 0.102084034958436,
-      "OPLength_mean": 206.6510067114094,
-      "repliesWithImages_ratio": 0.3140950137416568,
-      "repliesWithText_ratio": 0.8983117393011386,
-      "repliesPerThread_mean": 17.093959731543624,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 129.89614243323442,
-      "postersPerThread_mean": 11.818791946308725,
-      "postsPerPoster_mean": 1.5309483248154458,
-      "threadAgeHours_mean": 492.73059209543555,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242463259
+    "metaAnalysis": {
+      "OPLength_mean": 180.80666666666664,
+      "repliesWithImages_ratio": 0.3139249386180288,
+      "repliesWithText_ratio": 0.9045948789898283,
+      "repliesPerThread_mean": 19.006666666666668,
+      "threadsWithTitles_ratio": 0.5266666666666666,
+      "postLength_mean": 135.28957014328557,
+      "postersPerThread_mean": 12.540000000000001,
+      "postsPerPoster_mean": 1.5954279638490165,
+      "threadAgeHours_mean": 495.1205955685205,
+      "oldestThreadAgeHours": 2901.093728333314,
+      "created": 1532024514299
     }
   },
   "gif": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 6116.215694251834,
-      "dailyPeakPostsPerMinute_mean": 5.659466646834772,
-      "OPLength_mean": 67.59731543624162,
-      "repliesWithImages_ratio": 0.38013229927007297,
-      "repliesWithText_ratio": 0.6748403284671532,
-      "repliesPerThread_mean": 117.69127516778524,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 50.503194797851286,
-      "postersPerThread_mean": 65.6241610738255,
-      "postsPerPoster_mean": 1.8086520760891798,
-      "threadAgeHours_mean": 84.97863978933039,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242558311
+    "metaAnalysis": {
+      "OPLength_mean": 67.70068027210884,
+      "repliesWithImages_ratio": 0.351575456053068,
+      "repliesWithText_ratio": 0.7095771144278608,
+      "repliesPerThread_mean": 131.26530612244898,
+      "threadsWithTitles_ratio": 0.7346938775510204,
+      "postLength_mean": 53.22239366352929,
+      "postersPerThread_mean": 75.08163265306122,
+      "postsPerPoster_mean": 1.7616200054362599,
+      "threadAgeHours_mean": 85.24527115268185,
+      "oldestThreadAgeHours": 302.38397444446883,
+      "created": 1532024619358
     }
   },
   "h": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1075.7931887480106,
-      "dailyPeakPostsPerMinute_mean": 1.0913059576201583,
-      "OPLength_mean": 221.97333333333333,
-      "repliesWithImages_ratio": 0.5415710503089144,
-      "repliesWithText_ratio": 0.6212415416298911,
-      "repliesPerThread_mean": 113.3,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 65.90020414114902,
-      "postersPerThread_mean": 50.02,
-      "postsPerPoster_mean": 2.2850859656137543,
-      "threadAgeHours_mean": 848.5514385611006,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242597428
+    "metaAnalysis": {
+      "OPLength_mean": 225.9251700680272,
+      "repliesWithImages_ratio": 0.5384214639228966,
+      "repliesWithText_ratio": 0.6305287835373795,
+      "repliesPerThread_mean": 130.57823129251702,
+      "threadsWithTitles_ratio": 0.7482993197278912,
+      "postLength_mean": 73.17692069072486,
+      "postersPerThread_mean": 56.265306122448976,
+      "postsPerPoster_mean": 2.3385322210131787,
+      "threadAgeHours_mean": 951.926264504909,
+      "oldestThreadAgeHours": 6732.51747611112,
+      "created": 1532024807885
     }
   },
   "hc": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 505.35683972447544,
-      "dailyPeakPostsPerMinute_mean": 0.629178775517459,
-      "OPLength_mean": 52.973333333333336,
-      "repliesWithImages_ratio": 0.7056218057921635,
-      "repliesWithText_ratio": 0.42173764906303235,
-      "repliesPerThread_mean": 97.83333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 29.40681281618887,
-      "postersPerThread_mean": 36.71333333333333,
-      "postsPerPoster_mean": 2.692028327583076,
-      "threadAgeHours_mean": 663.8033001148154,
-      "oldestThreadAgeHours": 0,
-      "created": 1531242624430
+    "metaAnalysis": {
+      "OPLength_mean": 43.87323943661972,
+      "repliesWithImages_ratio": 0.7095672827135753,
+      "repliesWithText_ratio": 0.42388480665033773,
+      "repliesPerThread_mean": 94.88028169014083,
+      "threadsWithTitles_ratio": 0.7676056338028168,
+      "postLength_mean": 27.79353654058024,
+      "postersPerThread_mean": 36.46478873239436,
+      "postsPerPoster_mean": 2.6293935882580146,
+      "threadAgeHours_mean": 636.397813589593,
+      "oldestThreadAgeHours": 3496.144699166682,
+      "created": 1532024836922
     }
   },
   "his": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 5144.225741162261,
-      "dailyPeakPostsPerMinute_mean": 5.159771365428072,
-      "OPLength_mean": 194.32,
-      "repliesWithImages_ratio": 0.23200744978049753,
-      "repliesWithText_ratio": 0.9475854729280297,
-      "repliesPerThread_mean": 50.11333333333334,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 157.7714881961654,
-      "postersPerThread_mean": 26.06,
-      "postsPerPoster_mean": 1.961371194678946,
-      "threadAgeHours_mean": 57.317940918509144,
-      "oldestThreadAgeHours": 0,
-      "created": 1531263381661
+    "metaAnalysis": {
+      "OPLength_mean": 240.12666666666667,
+      "repliesWithImages_ratio": 0.20802808302808304,
+      "repliesWithText_ratio": 0.951007326007326,
+      "repliesPerThread_mean": 43.68,
+      "threadsWithTitles_ratio": 0.3466666666666666,
+      "postLength_mean": 161.47925992241122,
+      "postersPerThread_mean": 22.813333333333333,
+      "postsPerPoster_mean": 1.9585037989479837,
+      "threadAgeHours_mean": 48.58056976851315,
+      "oldestThreadAgeHours": 924.0140299999714,
+      "created": 1532025006175
     }
   },
   "hm": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 451.4956184375354,
-      "dailyPeakPostsPerMinute_mean": 0.5664041884129318,
-      "OPLength_mean": 93.84,
-      "repliesWithImages_ratio": 0.5482513804890876,
-      "repliesWithText_ratio": 0.5799807169778245,
-      "repliesPerThread_mean": 76.06,
-      "threadsWithTitles_ratio": 0.84,
-      "postLength_mean": 47.650488796608705,
-      "postersPerThread_mean": 34.373333333333335,
-      "postsPerPoster_mean": 2.241854150504267,
-      "threadAgeHours_mean": 608.5869960425939,
-      "oldestThreadAgeHours": 5050.354983055526,
-      "created": 1531434198993
+    "metaAnalysis": {
+      "OPLength_mean": 104.05109489051095,
+      "repliesWithImages_ratio": 0.5731560823256187,
+      "repliesWithText_ratio": 0.5617842556258509,
+      "repliesPerThread_mean": 91.14598540145985,
+      "threadsWithTitles_ratio": 0.8102189781021899,
+      "postLength_mean": 42.921261089987325,
+      "postersPerThread_mean": 40.70802919708029,
+      "postsPerPoster_mean": 2.263582571274879,
+      "threadAgeHours_mean": 749.0660663260317,
+      "oldestThreadAgeHours": 5214.557151388857,
+      "created": 1532025240455
     }
   },
   "hr": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 858.3916320561174,
-      "dailyPeakPostsPerMinute_mean": 1.0332779047418137,
-      "OPLength_mean": 72.18666666666667,
-      "repliesWithImages_ratio": 0.6605564222568903,
-      "repliesWithText_ratio": 0.4638152192754377,
-      "repliesPerThread_mean": 153.84,
-      "threadsWithTitles_ratio": 0.7866666666666666,
-      "postLength_mean": 29.653190390080084,
-      "postersPerThread_mean": 40.666666666666664,
-      "postsPerPoster_mean": 3.8075409836065575,
-      "threadAgeHours_mean": 1534.9829386055542,
-      "oldestThreadAgeHours": 9166.007507499986,
-      "created": 1531434343095
+    "metaAnalysis": {
+      "OPLength_mean": 71.66666666666667,
+      "repliesWithImages_ratio": 0.65322476965931,
+      "repliesWithText_ratio": 0.4694664666809513,
+      "repliesPerThread_mean": 155.5666666666667,
+      "threadsWithTitles_ratio": 0.7933333333333334,
+      "postLength_mean": 29.45096870342772,
+      "postersPerThread_mean": 41.153333333333336,
+      "postsPerPoster_mean": 3.8044710837518227,
+      "threadAgeHours_mean": 1511.1405049333348,
+      "oldestThreadAgeHours": 9330.225646944444,
+      "created": 1532025411311
     }
   },
   "i": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 106.06108901099766,
-      "dailyPeakPostsPerMinute_mean": 0.15,
-      "OPLength_mean": 96.33108108108108,
-      "repliesWithImages_ratio": 0.5446172738436349,
-      "repliesWithText_ratio": 0.7572656569791241,
-      "repliesPerThread_mean": 66.02702702702703,
-      "threadsWithTitles_ratio": 0.5743243243243243,
-      "postLength_mean": 65.34909274193548,
-      "postersPerThread_mean": 35.78378378378378,
-      "postsPerPoster_mean": 1.8731117824773413,
-      "threadAgeHours_mean": 2439.2651890427933,
-      "oldestThreadAgeHours": 35107.97920638886,
-      "created": 1531434393135
+    "metaAnalysis": {
+      "OPLength_mean": 100.35333333333334,
+      "repliesWithImages_ratio": 0.541501976284585,
+      "repliesWithText_ratio": 0.7595681095150871,
+      "repliesPerThread_mean": 69.15333333333334,
+      "threadsWithTitles_ratio": 0.5599999999999999,
+      "postLength_mean": 66.10016155088854,
+      "postersPerThread_mean": 37.18,
+      "postsPerPoster_mean": 1.8868567330105792,
+      "threadAgeHours_mean": 2536.9061854870424,
+      "oldestThreadAgeHours": 35272.152313888866,
+      "created": 1532025421297
     }
   },
   "ic": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1553.3983385553342,
-      "dailyPeakPostsPerMinute_mean": 1.5955213895959384,
-      "OPLength_mean": 260.04,
-      "repliesWithImages_ratio": 0.2718042609853529,
-      "repliesWithText_ratio": 0.9232689747003995,
-      "repliesPerThread_mean": 40.053333333333335,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 132.84670347515427,
-      "postersPerThread_mean": 20.72,
-      "postsPerPoster_mean": 1.9813384813384813,
-      "threadAgeHours_mean": 61.47002747407489,
-      "oldestThreadAgeHours": 0,
-      "created": 1531236705917
+    "metaAnalysis": {
+      "OPLength_mean": 229.6190476190476,
+      "repliesWithImages_ratio": 0.2548367593712213,
+      "repliesWithText_ratio": 0.9375755743651754,
+      "repliesPerThread_mean": 45.006802721088434,
+      "threadsWithTitles_ratio": 0.42857142857142855,
+      "postLength_mean": 139.89250332692592,
+      "postersPerThread_mean": 22.89795918367347,
+      "postsPerPoster_mean": 2.009209744503862,
+      "threadAgeHours_mean": 71.93622161753633,
+      "oldestThreadAgeHours": 465.82092472222115,
+      "created": 1532025457329
     }
   },
   "int": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 41999.06845831551,
-      "dailyPeakPostsPerMinute_mean": 41.86354238333016,
-      "OPLength_mean": 137.10135135135135,
-      "repliesWithImages_ratio": 0.24038122132015532,
-      "repliesWithText_ratio": 0.9543475703023885,
-      "repliesPerThread_mean": 57.42567567567568,
-      "threadsWithTitles_ratio": -6756.75,
-      "postLength_mean": 83.93731930149184,
-      "postersPerThread_mean": 18.364864864864863,
-      "postsPerPoster_mean": 3.1813833701250918,
-      "threadAgeHours_mean": 2.947317304805412,
-      "oldestThreadAgeHours": 0,
-      "created": 1531236836474
+    "metaAnalysis": {
+      "OPLength_mean": 114.24000000000001,
+      "repliesWithImages_ratio": 0.2251762087300606,
+      "repliesWithText_ratio": 0.9684679114628416,
+      "repliesPerThread_mean": 53.91333333333333,
+      "threadsWithTitles_ratio": 0.41333333333333333,
+      "postLength_mean": 89.52215612480272,
+      "postersPerThread_mean": 18.52,
+      "postsPerPoster_mean": 2.96508279337653,
+      "threadAgeHours_mean": 2.945844753701157,
+      "oldestThreadAgeHours": 40.730380555523766,
+      "created": 1532026059408
     }
   },
   "jp": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 6950.794762545522,
-      "dailyPeakPostsPerMinute_mean": 6.708094330159275,
-      "OPLength_mean": 249.39333333333335,
-      "repliesWithImages_ratio": 0.3260944842938412,
-      "repliesWithText_ratio": 0.8859262923571605,
-      "repliesPerThread_mean": 134.76666666666668,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 72.8758163515836,
-      "postersPerThread_mean": 43.28666666666667,
-      "postsPerPoster_mean": 3.1364546434621903,
-      "threadAgeHours_mean": 349.4741945814832,
-      "oldestThreadAgeHours": 0,
-      "created": 1531236874058
+    "metaAnalysis": {
+      "OPLength_mean": 239.85906040268458,
+      "repliesWithImages_ratio": 0.33731960843677466,
+      "repliesWithText_ratio": 0.8880310828539711,
+      "repliesPerThread_mean": 133.00671140939596,
+      "threadsWithTitles_ratio": 0.4093959731543624,
+      "postLength_mean": 87.6596884860019,
+      "postersPerThread_mean": 49.758389261744966,
+      "postsPerPoster_mean": 2.6931480981926086,
+      "threadAgeHours_mean": 421.5437351789764,
+      "oldestThreadAgeHours": 2799.7626111111376,
+      "created": 1532025668238
     }
   },
   "k": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 10487.974505780565,
-      "dailyPeakPostsPerMinute_mean": 10.59920916847793,
-      "OPLength_mean": 190.59333333333333,
-      "repliesWithImages_ratio": 0.2694503171247357,
-      "repliesWithText_ratio": 0.9233615221987315,
-      "repliesPerThread_mean": 63.06666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 133.23173777315296,
-      "postersPerThread_mean": 33.68,
-      "postsPerPoster_mean": 1.9022169437846397,
-      "threadAgeHours_mean": 19.590233016667995,
-      "oldestThreadAgeHours": 0,
-      "created": 1531236931077
+    "metaAnalysis": {
+      "OPLength_mean": 232.38513513513513,
+      "repliesWithImages_ratio": 0.2748664023444234,
+      "repliesWithText_ratio": 0.9394069987933116,
+      "repliesPerThread_mean": 78.39189189189189,
+      "threadsWithTitles_ratio": 0.5405405405405406,
+      "postLength_mean": 134.32527659574467,
+      "postersPerThread_mean": 40.12162162162163,
+      "postsPerPoster_mean": 1.9787807342539574,
+      "threadAgeHours_mean": 24.78950721846732,
+      "oldestThreadAgeHours": 208.64507555557623,
+      "created": 1532025769279
     }
   },
   "lgbt": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 5898.014870170931,
-      "dailyPeakPostsPerMinute_mean": 5.843142597349043,
-      "OPLength_mean": 416.55333333333334,
-      "repliesWithImages_ratio": 0.14993240752119946,
-      "repliesWithText_ratio": 0.9800909426078407,
-      "repliesPerThread_mean": 54.24666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 165.27923253288282,
-      "postersPerThread_mean": 20.78,
-      "postsPerPoster_mean": 2.6586461341033045,
-      "threadAgeHours_mean": 37.71371072408491,
-      "oldestThreadAgeHours": 0,
-      "created": 1531236971098
+    "metaAnalysis": {
+      "OPLength_mean": 326.9266666666667,
+      "repliesWithImages_ratio": 0.15851915380217266,
+      "repliesWithText_ratio": 0.9838479130931961,
+      "repliesPerThread_mean": 46.64000000000001,
+      "threadsWithTitles_ratio": 0.3933333333333333,
+      "postLength_mean": 156.22138259165968,
+      "postersPerThread_mean": 19.253333333333334,
+      "postsPerPoster_mean": 2.474376731301939,
+      "threadAgeHours_mean": 33.42107813148014,
+      "oldestThreadAgeHours": 500.55101916664177,
+      "created": 1532025831304
     }
   },
   "lit": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 4588.58123730573,
-      "dailyPeakPostsPerMinute_mean": 4.36375169381598,
-      "OPLength_mean": 205.24,
-      "repliesWithImages_ratio": 0.13919129082426127,
-      "repliesWithText_ratio": 0.9650077760497667,
-      "repliesPerThread_mean": 25.72,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 184.4812874251497,
-      "postersPerThread_mean": 16.64,
-      "postsPerPoster_mean": 1.6057692307692308,
-      "threadAgeHours_mean": 13.724164670382615,
-      "oldestThreadAgeHours": 0,
-      "created": 1531237020181
+    "metaAnalysis": {
+      "OPLength_mean": 246.0625,
+      "repliesWithImages_ratio": 0.1382978723404255,
+      "repliesWithText_ratio": 0.968676122931442,
+      "repliesPerThread_mean": 35.25,
+      "threadsWithTitles_ratio": 0.3125,
+      "postLength_mean": 190.60210727969348,
+      "postersPerThread_mean": 20.104166666666664,
+      "postsPerPoster_mean": 1.8031088082901556,
+      "threadAgeHours_mean": 19.378504484955364,
+      "oldestThreadAgeHours": 214.19176111108726,
+      "created": 1532025907326
     }
   },
   "m": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 3092.3082866782497,
-      "dailyPeakPostsPerMinute_mean": 3.14710837405651,
-      "OPLength_mean": 202.04,
-      "repliesWithImages_ratio": 0.29206993443646584,
-      "repliesWithText_ratio": 0.9163284420855448,
-      "repliesPerThread_mean": 85.41333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 125.0595587100756,
-      "postersPerThread_mean": 35.18666666666667,
-      "postsPerPoster_mean": 2.455854490337249,
-      "threadAgeHours_mean": 108.17925048148187,
-      "oldestThreadAgeHours": 0,
-      "created": 1531237057195
+    "metaAnalysis": {
+      "OPLength_mean": 195.33333333333331,
+      "repliesWithImages_ratio": 0.29086989126359203,
+      "repliesWithText_ratio": 0.9204161979752531,
+      "repliesPerThread_mean": 71.12,
+      "threadsWithTitles_ratio": 0.43333333333333335,
+      "postLength_mean": 128.84479571085228,
+      "postersPerThread_mean": 30.893333333333334,
+      "postsPerPoster_mean": 2.334484246870954,
+      "threadAgeHours_mean": 107.33766466851378,
+      "oldestThreadAgeHours": 1540.564278888901,
+      "created": 1532026099382
     }
   },
   "mlp": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 4550.887127934247,
-      "dailyPeakPostsPerMinute_mean": 4.791857372016072,
-      "OPLength_mean": 464.14,
-      "repliesWithImages_ratio": 0.3127851755284477,
-      "repliesWithText_ratio": 0.8978024024583294,
-      "repliesPerThread_mean": 143.18666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 219.5768910671352,
-      "postersPerThread_mean": 36.56,
-      "postsPerPoster_mean": 3.9438366156090443,
-      "threadAgeHours_mean": 193.57942179814793,
-      "oldestThreadAgeHours": 0,
-      "created": 1531237087280
+    "metaAnalysis": {
+      "OPLength_mean": 471.78783756777557,
+      "repliesWithImages_ratio": 0.33890348082659183,
+      "repliesWithText_ratio": 0.8756810888889927,
+      "repliesPerThread_mean": 137.85682730676334,
+      "threadsWithTitles_ratio": 0.6266666666666666,
+      "postLength_mean": 190.5631470975029,
+      "postersPerThread_mean": 37.27529071515301,
+      "postsPerPoster_mean": 3.72517087439685,
+      "threadAgeHours_mean": 164.17962625959132,
+      "oldestThreadAgeHours": 3015.0407830555573,
+      "created": 1532034269681
     }
   },
   "mu": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 22882.284457496877,
-      "dailyPeakPostsPerMinute_mean": 21.42821611839888,
-      "OPLength_mean": 129.80536912751677,
-      "repliesWithImages_ratio": 0.22541841004184102,
-      "repliesWithText_ratio": 0.9364539748953975,
-      "repliesPerThread_mean": 25.664429530201343,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 83.05109489051095,
-      "postersPerThread_mean": 13.89261744966443,
-      "postsPerPoster_mean": 1.9193236714975845,
-      "threadAgeHours_mean": 4.063124908653326,
-      "oldestThreadAgeHours": 0,
-      "created": 1531237160321
+    "metaAnalysis": {
+      "OPLength_mean": 155.29333333333332,
+      "repliesWithImages_ratio": 0.2762674504041146,
+      "repliesWithText_ratio": 0.9382806759735489,
+      "repliesPerThread_mean": 27.22,
+      "threadsWithTitles_ratio": 0.3533333333333333,
+      "postLength_mean": 100.16253248287268,
+      "postersPerThread_mean": 14.906666666666666,
+      "postsPerPoster_mean": 1.893112701252236,
+      "threadAgeHours_mean": 3.8434521388870677,
+      "oldestThreadAgeHours": 25.596745000018014,
+      "created": 1532023624259
     }
   },
   "n": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 405.8596359851746,
-      "dailyPeakPostsPerMinute_mean": 0.45171153451977647,
-      "OPLength_mean": 215.22666666666666,
-      "repliesWithImages_ratio": 0.25787643207855976,
-      "repliesWithText_ratio": 0.955810147299509,
-      "repliesPerThread_mean": 65.17333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 188.67821881926255,
-      "postersPerThread_mean": 32.3,
-      "postsPerPoster_mean": 2.0487100103199176,
-      "threadAgeHours_mean": 697.181328101862,
-      "oldestThreadAgeHours": 0,
-      "created": 1531237163340
+    "metaAnalysis": {
+      "OPLength_mean": 234.2579832896198,
+      "repliesWithImages_ratio": 0.25899053576362197,
+      "repliesWithText_ratio": 0.9519519991555667,
+      "repliesPerThread_mean": 63.031610258535586,
+      "threadsWithTitles_ratio": 0.48,
+      "postLength_mean": 186.4427593161598,
+      "postersPerThread_mean": 30.941952756993278,
+      "postsPerPoster_mean": 2.0694107693013533,
+      "threadAgeHours_mean": 709.5598666262458,
+      "oldestThreadAgeHours": 26381.90213861108,
+      "created": 1532034297711
     }
   },
   "news": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 323.6867965327266,
-      "dailyPeakPostsPerMinute_mean": 0.4666666666666667,
-      "OPLength_mean": 1094.8333333333333,
+    "metaAnalysis": {
+      "OPLength_mean": 912.5178439043257,
       "repliesWithImages_ratio": 0,
-      "repliesWithText_ratio": 0.9996438746438746,
-      "repliesPerThread_mean": 37.44,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 263.35015608740895,
-      "postersPerThread_mean": 21.986666666666668,
-      "postsPerPoster_mean": 1.7483323226197696,
-      "threadAgeHours_mean": 260.8354085907363,
-      "oldestThreadAgeHours": 0,
-      "created": 1531237174340
+      "repliesWithText_ratio": 0.9995101887187121,
+      "repliesPerThread_mean": 40.832052596702354,
+      "threadsWithTitles_ratio": 1,
+      "postLength_mean": 265.0719715970315,
+      "postersPerThread_mean": 22.251903204430477,
+      "postsPerPoster_mean": 1.8799314473187787,
+      "threadAgeHours_mean": 249.75407080731256,
+      "oldestThreadAgeHours": 1720.468542500006,
+      "created": 1532034328714
     }
   },
   "o": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 5203.077877199375,
-      "dailyPeakPostsPerMinute_mean": 4.916483766494574,
-      "OPLength_mean": 233.94666666666666,
-      "repliesWithImages_ratio": 0.2781003424147685,
-      "repliesWithText_ratio": 0.9346434420128034,
-      "repliesPerThread_mean": 44.78,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 113.73438182612495,
-      "postersPerThread_mean": 25.7,
-      "postsPerPoster_mean": 1.7813229571984437,
-      "threadAgeHours_mean": 23.72809498148715,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240830048
+    "metaAnalysis": {
+      "OPLength_mean": 266.78435992536964,
+      "repliesWithImages_ratio": 0.22851907678517794,
+      "repliesWithText_ratio": 0.9678972898930474,
+      "repliesPerThread_mean": 48.41431358759625,
+      "threadsWithTitles_ratio": 0.41917581058995773,
+      "postLength_mean": 130.1452478877987,
+      "postersPerThread_mean": 26.929822002574284,
+      "postsPerPoster_mean": 1.8349290828165377,
+      "threadAgeHours_mean": 24.214628779000364,
+      "oldestThreadAgeHours": 212.80632166663807,
+      "created": 1532034441493
     }
   },
   "out": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 741.2142925788569,
-      "dailyPeakPostsPerMinute_mean": 0.7894738392729973,
-      "OPLength_mean": 261.6333333333333,
-      "repliesWithImages_ratio": 0.21361780587383117,
-      "repliesWithText_ratio": 0.9618069274331621,
-      "repliesPerThread_mean": 50.62,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 166.42761203667828,
-      "postersPerThread_mean": 29.493333333333332,
-      "postsPerPoster_mean": 1.7502260397830018,
-      "threadAgeHours_mean": 189.58687971111328,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240852634
+    "metaAnalysis": {
+      "OPLength_mean": 265.175375731891,
+      "repliesWithImages_ratio": 0.2236722884652051,
+      "repliesWithText_ratio": 0.9605281243919848,
+      "repliesPerThread_mean": 53.25242936187494,
+      "threadsWithTitles_ratio": 0.5,
+      "postLength_mean": 167.76488556189406,
+      "postersPerThread_mean": 30.46591980278964,
+      "postsPerPoster_mean": 1.780757965394082,
+      "threadAgeHours_mean": 196.57979420918255,
+      "oldestThreadAgeHours": 1603.1249036111435,
+      "created": 1532034485539
     }
   },
   "p": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 429.86789312882183,
-      "dailyPeakPostsPerMinute_mean": 0.4985789873451842,
-      "OPLength_mean": 230.64666666666668,
-      "repliesWithImages_ratio": 0.34433067880166857,
-      "repliesWithText_ratio": 0.8603210719251675,
-      "repliesPerThread_mean": 52.74,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 150.0745565066369,
-      "postersPerThread_mean": 24.226666666666667,
-      "postsPerPoster_mean": 2.2182168409466154,
-      "threadAgeHours_mean": 278.72146240369835,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240884651
+    "metaAnalysis": {
+      "OPLength_mean": 228.898977468669,
+      "repliesWithImages_ratio": 0.3709476734569166,
+      "repliesWithText_ratio": 0.8470505786282801,
+      "repliesPerThread_mean": 49.852387123317946,
+      "threadsWithTitles_ratio": 0.5741065239293417,
+      "postLength_mean": 149.1632331979991,
+      "postersPerThread_mean": 24.37840502545784,
+      "postsPerPoster_mean": 2.0859603846196624,
+      "threadAgeHours_mean": 275.7857236925552,
+      "oldestThreadAgeHours": 2907.090437500013,
+      "created": 1532034510564
     }
   },
   "po": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 31.775541926877544,
-      "dailyPeakPostsPerMinute_mean": 0.05,
-      "OPLength_mean": 201.36241610738256,
-      "repliesWithImages_ratio": 0.3191253805701633,
-      "repliesWithText_ratio": 0.9086631608081926,
-      "repliesPerThread_mean": 24.248322147651006,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 107.32163742690058,
-      "postersPerThread_mean": 10.778523489932885,
-      "postsPerPoster_mean": 2.3424657534246576,
-      "threadAgeHours_mean": 3647.846022296789,
-      "oldestThreadAgeHours": 0,
-      "created": 1531240894672
+    "metaAnalysis": {
+      "OPLength_mean": 196.02087776229192,
+      "repliesWithImages_ratio": 0.313411657150878,
+      "repliesWithText_ratio": 0.9036724136126176,
+      "repliesPerThread_mean": 25.264687772529825,
+      "threadsWithTitles_ratio": 0.5981890764133156,
+      "postLength_mean": 107.7054752552736,
+      "postersPerThread_mean": 11.23270446335911,
+      "postsPerPoster_mean": 2.338233669211612,
+      "threadAgeHours_mean": 3744.0395436914946,
+      "oldestThreadAgeHours": 22239.418210277756,
+      "created": 1532034520572
     }
   },
   "pol": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 118302.41844109942,
-      "dailyPeakPostsPerMinute_mean": 105.83153597087008,
-      "OPLength_mean": 306.79396984924625,
-      "repliesWithImages_ratio": 0.2490810292472431,
-      "repliesWithText_ratio": 0.947898353843695,
-      "repliesPerThread_mean": 62.88442211055276,
-      "threadsWithTitles_ratio": -5025.120603015075,
-      "postLength_mean": 132.74199638165658,
-      "postersPerThread_mean": 34.31658291457286,
-      "postsPerPoster_mean": 1.8616195636257138,
-      "threadAgeHours_mean": 1.97584049553328,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241097438
+    "metaAnalysis": {
+      "OPLength_mean": 333.065,
+      "repliesWithImages_ratio": 0.24505622334238078,
+      "repliesWithText_ratio": 0.9426909654905002,
+      "repliesPerThread_mean": 64.475,
+      "threadsWithTitles_ratio": 0.5499999999999999,
+      "postLength_mean": 134.54326078655976,
+      "postersPerThread_mean": 34.2,
+      "postsPerPoster_mean": 1.914473684210526,
+      "threadAgeHours_mean": 1.654621858333879,
+      "oldestThreadAgeHours": 14.264649722245004,
+      "created": 1532025213238
     }
   },
   "qa": {
     "metaAnalysis": {
-      "postsPerDay_mean": 1911.9802560344392,
-      "dailyPeakPostsPerMinute_mean": 2.441135152430184,
-      "OPLength_mean": 114.37870460908078,
-      "repliesWithImages_ratio": 0.44163343616294487,
-      "repliesWithText_ratio": 0.7114833577248862,
-      "repliesPerThread_mean": 36.95527672136408,
-      "threadsWithTitles_ratio": -6425.1079637464645,
-      "postLength_mean": 56.398311835358214,
-      "postersPerThread_mean": 21.827307905106096,
-      "postsPerPoster_mean": 1.73888950879211,
-      "threadAgeHours_mean": 119.96133600976931,
-      "oldestThreadAgeHours": 1190.008176388873,
-      "created": 1531241133467
+      "OPLength_mean": 116.61132679044628,
+      "repliesWithImages_ratio": 0.4455989776910066,
+      "repliesWithText_ratio": 0.7589017007048007,
+      "repliesPerThread_mean": 44.523142019814216,
+      "threadsWithTitles_ratio": 0.1479621751221949,
+      "postLength_mean": 61.70756452672375,
+      "postersPerThread_mean": 24.868258804765173,
+      "postsPerPoster_mean": 1.8305721513197069,
+      "threadAgeHours_mean": 148.5060478096864,
+      "oldestThreadAgeHours": 1378.3908766666386,
+      "created": 1532034618630
     }
   },
   "qst": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 2596.245442043636,
-      "dailyPeakPostsPerMinute_mean": 3.2983034699052007,
-      "OPLength_mean": 1472.1733333333334,
-      "repliesWithImages_ratio": 0.10926589239842252,
-      "repliesWithText_ratio": 0.992546763631101,
-      "repliesPerThread_mean": 184.26,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 307.40663571916946,
-      "postersPerThread_mean": 27.62,
-      "postsPerPoster_mean": 6.707458363504707,
-      "threadAgeHours_mean": 170.0779770185184,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241152744
+    "metaAnalysis": {
+      "OPLength_mean": 1434.3673286176422,
+      "repliesWithImages_ratio": 0.09110043602723521,
+      "repliesWithText_ratio": 0.9949058247817547,
+      "repliesPerThread_mean": 181.87843213223528,
+      "threadsWithTitles_ratio": 0.9933200547001189,
+      "postLength_mean": 294.40904500193915,
+      "postersPerThread_mean": 26.98314406374691,
+      "postsPerPoster_mean": 6.777506420311517,
+      "threadAgeHours_mean": 156.0514646651955,
+      "oldestThreadAgeHours": 337.15983555555346,
+      "created": 1532034661665
     }
   },
   "r": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1906.2359200581018,
-      "dailyPeakPostsPerMinute_mean": 1.9538198956722994,
-      "OPLength_mean": 74.88666666666667,
-      "repliesWithImages_ratio": 0.5685071574642127,
-      "repliesWithText_ratio": 0.6952965235173824,
-      "repliesPerThread_mean": 6.52,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 34.92464539007092,
-      "postersPerThread_mean": 3.033333333333333,
-      "postsPerPoster_mean": 2.479120879120879,
-      "threadAgeHours_mean": 7.118105022219379,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241204822
+    "metaAnalysis": {
+      "OPLength_mean": 74.74378933507528,
+      "repliesWithImages_ratio": 0.6148775505551263,
+      "repliesWithText_ratio": 0.7089914497704918,
+      "repliesPerThread_mean": 7.400943781153098,
+      "threadsWithTitles_ratio": 0.5753179168676544,
+      "postLength_mean": 31.924059754888265,
+      "postersPerThread_mean": 3.4371483357451855,
+      "postsPerPoster_mean": 2.4441609615116433,
+      "threadAgeHours_mean": 6.6085010079283135,
+      "oldestThreadAgeHours": 49.13576111111376,
+      "created": 1532034782733
     }
   },
   "r9k": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 22924.492854287244,
-      "dailyPeakPostsPerMinute_mean": 20.49944861389323,
-      "OPLength_mean": 219.79333333333332,
-      "repliesWithImages_ratio": 0.21002570694087402,
-      "repliesWithText_ratio": 0.9997429305912596,
-      "repliesPerThread_mean": 25.933333333333334,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 151.11534653465347,
-      "postersPerThread_mean": 13.52,
-      "postsPerPoster_mean": 1.9921104536489151,
-      "threadAgeHours_mean": 2.4980938759273927,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241329005
+    "metaAnalysis": {
+      "OPLength_mean": 182.44,
+      "repliesWithImages_ratio": 0.2245668591737006,
+      "repliesWithText_ratio": 1,
+      "repliesPerThread_mean": 30.013333333333332,
+      "threadsWithTitles_ratio": 0.26666666666666666,
+      "postLength_mean": 134.43250214961307,
+      "postersPerThread_mean": 15.093333333333334,
+      "postsPerPoster_mean": 2.0547703180212014,
+      "threadAgeHours_mean": 2.5327425981437703,
+      "oldestThreadAgeHours": 21.008216666645474,
+      "created": 1532022561622
     }
   },
   "s": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 2116.6327084305167,
-      "dailyPeakPostsPerMinute_mean": 2.1597240848081065,
-      "OPLength_mean": 65.22142857142858,
-      "repliesWithImages_ratio": 0.7166063649117626,
-      "repliesWithText_ratio": 0.4013143321272982,
-      "repliesPerThread_mean": 96.73571428571428,
-      "threadsWithTitles_ratio": -7142.85,
-      "postLength_mean": 21.579185851056057,
-      "postersPerThread_mean": 39.57857142857143,
-      "postsPerPoster_mean": 2.4694098538170004,
-      "threadAgeHours_mean": 143.23298681944746,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241361636
+    "metaAnalysis": {
+      "OPLength_mean": 56.06474820143885,
+      "repliesWithImages_ratio": 0.716206955627891,
+      "repliesWithText_ratio": 0.3953229398663697,
+      "repliesPerThread_mean": 83.98561151079137,
+      "threadsWithTitles_ratio": 0.7697841726618705,
+      "postLength_mean": 21.985524422246677,
+      "postersPerThread_mean": 34,
+      "postsPerPoster_mean": 2.4995768091409225,
+      "threadAgeHours_mean": 136.88661489208934,
+      "oldestThreadAgeHours": 532.0234058333106,
+      "created": 1532021055332
     }
   },
   "s4s": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 3771.43463045519,
-      "dailyPeakPostsPerMinute_mean": 4.057435511233207,
-      "OPLength_mean": 103.17333333333333,
-      "repliesWithImages_ratio": 0.39379157427937916,
-      "repliesWithText_ratio": 0.8731707317073171,
-      "repliesPerThread_mean": 15.033333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 56.44906444906445,
-      "postersPerThread_mean": 7.44,
-      "postsPerPoster_mean": 2.1550179211469533,
-      "threadAgeHours_mean": 14.089590525926058,
-      "oldestThreadAgeHours": 0,
-      "created": 1531241412792
+    "metaAnalysis": {
+      "OPLength_mean": 123.70666666666668,
+      "repliesWithImages_ratio": 0.4030571198712792,
+      "repliesWithText_ratio": 0.8974255832662913,
+      "repliesPerThread_mean": 16.573333333333334,
+      "threadsWithTitles_ratio": 0.16666666666666666,
+      "postLength_mean": 62.579666160849776,
+      "postersPerThread_mean": 8.046666666666667,
+      "postsPerPoster_mean": 2.183927091963546,
+      "threadAgeHours_mean": 10.06692269259647,
+      "oldestThreadAgeHours": 323.65510249998835,
+      "created": 1532021134364
     }
   },
   "sci": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1948.4011054770208,
-      "dailyPeakPostsPerMinute_mean": 1.8936611287670193,
-      "OPLength_mean": 239.78666666666666,
-      "repliesWithImages_ratio": 0.14102828825108404,
-      "repliesWithText_ratio": 0.9832748296510427,
-      "repliesPerThread_mean": 32.28666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 184.70999399158822,
-      "postersPerThread_mean": 17.153333333333332,
-      "postsPerPoster_mean": 1.9405363389040031,
-      "threadAgeHours_mean": 37.06300186665853,
-      "oldestThreadAgeHours": 0,
-      "created": 1531238439361
+    "metaAnalysis": {
+      "OPLength_mean": 227.91333333333336,
+      "repliesWithImages_ratio": 0.14445016297821237,
+      "repliesWithText_ratio": 0.9842168468004804,
+      "repliesPerThread_mean": 38.86,
+      "threadsWithTitles_ratio": 0.36666666666666664,
+      "postLength_mean": 194.4351898310754,
+      "postersPerThread_mean": 19.94666666666667,
+      "postsPerPoster_mean": 1.9983288770053478,
+      "threadAgeHours_mean": 40.48806961666524,
+      "oldestThreadAgeHours": 493.94566194441586,
+      "created": 1532021174361
     }
   },
   "soc": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 3817.8995970167707,
-      "dailyPeakPostsPerMinute_mean": 3.679556805069697,
-      "OPLength_mean": 204.42,
-      "repliesWithImages_ratio": 0.252154679276943,
-      "repliesWithText_ratio": 0.9493555030127374,
-      "repliesPerThread_mean": 87.40666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 90.26868260312193,
-      "postersPerThread_mean": 51.25333333333333,
-      "postsPerPoster_mean": 1.7248959417273673,
-      "threadAgeHours_mean": 64.1934088907348,
-      "oldestThreadAgeHours": 0,
-      "created": 1531238511649
+    "metaAnalysis": {
+      "OPLength_mean": 236.24666666666667,
+      "repliesWithImages_ratio": 0.2222466798737985,
+      "repliesWithText_ratio": 0.9660283219605253,
+      "repliesPerThread_mean": 90.86,
+      "threadsWithTitles_ratio": 0,
+      "postLength_mean": 101.92423252775964,
+      "postersPerThread_mean": 55.04,
+      "postsPerPoster_mean": 1.668968023255814,
+      "threadAgeHours_mean": 72.32309882407239,
+      "oldestThreadAgeHours": 602.017054444419,
+      "created": 1532021247410
+    }
+  },
+  "sp": {
+    "metaAnalysis": {
+      "OPLength_mean": 209.63333333333335,
+      "repliesWithImages_ratio": 0.20497937986864215,
+      "repliesWithText_ratio": 0.9638002138383992,
+      "repliesPerThread_mean": 87.29333333333334,
+      "threadsWithTitles_ratio": 0.32666666666666666,
+      "postLength_mean": 97.79167925098159,
+      "postersPerThread_mean": 34.75333333333333,
+      "postsPerPoster_mean": 2.540571647803568,
+      "threadAgeHours_mean": 9.937925338887725,
+      "oldestThreadAgeHours": 88.18500527779261,
+      "created": 1532024933050
     }
   },
   "t": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 134.02815222025635,
-      "dailyPeakPostsPerMinute_mean": 0.15729165276498822,
-      "OPLength_mean": 692.0571428571428,
-      "repliesWithImages_ratio": 0.22172825784940262,
-      "repliesWithText_ratio": 0.9891636565712698,
-      "repliesPerThread_mean": 102.82857142857142,
-      "threadsWithTitles_ratio": -28571.4,
-      "postLength_mean": 167.13566318106768,
-      "postersPerThread_mean": 67.57142857142857,
-      "postsPerPoster_mean": 1.5365750528541227,
-      "threadAgeHours_mean": 3107.301662936503,
-      "oldestThreadAgeHours": 0,
-      "created": 1531238676239
+    "metaAnalysis": {
+      "OPLength_mean": 665.0536912751678,
+      "repliesWithImages_ratio": 0.21678178212405114,
+      "repliesWithText_ratio": 0.9852971346508924,
+      "repliesPerThread_mean": 98.14093959731544,
+      "threadsWithTitles_ratio": 0.825503355704698,
+      "postLength_mean": 170.8298131600325,
+      "postersPerThread_mean": 21.322147651006713,
+      "postsPerPoster_mean": 4.649669499527856,
+      "threadAgeHours_mean": 3565.8717136111068,
+      "oldestThreadAgeHours": 29055.975982777807,
+      "created": 1532021428530
     }
   },
   "tg": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 17854.691517886116,
-      "dailyPeakPostsPerMinute_mean": 17.27577631401039,
-      "OPLength_mean": 462.6711409395973,
-      "repliesWithImages_ratio": 0.1975867269984917,
-      "repliesWithText_ratio": 0.9490950226244343,
-      "repliesPerThread_mean": 88.99328859060402,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 209.9075247967783,
-      "postersPerThread_mean": 34.308724832214764,
-      "postsPerPoster_mean": 2.623043818466354,
-      "threadAgeHours_mean": 24.0877139970218,
-      "oldestThreadAgeHours": 0,
-      "created": 1531238803845
+    "metaAnalysis": {
+      "OPLength_mean": 496.50666666666666,
+      "repliesWithImages_ratio": 0.21218607305936074,
+      "repliesWithText_ratio": 0.9507705479452055,
+      "repliesPerThread_mean": 93.44,
+      "threadsWithTitles_ratio": 0.52,
+      "postLength_mean": 198.95983340392485,
+      "postersPerThread_mean": 34.373333333333335,
+      "postsPerPoster_mean": 2.7474786656322734,
+      "threadAgeHours_mean": 26.755952381481958,
+      "oldestThreadAgeHours": 311.52821333335504,
+      "created": 1532021553621
     }
   },
   "toy": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1721.7622339748423,
-      "dailyPeakPostsPerMinute_mean": 1.7471801788803787,
-      "OPLength_mean": 340.97986577181206,
-      "repliesWithImages_ratio": 0.2903753198748934,
-      "repliesWithText_ratio": 0.9499573500142167,
-      "repliesPerThread_mean": 94.41610738255034,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 140.7327143560526,
-      "postersPerThread_mean": 38.711409395973156,
-      "postsPerPoster_mean": 2.4648058252427183,
-      "threadAgeHours_mean": 268.39866385161037,
-      "oldestThreadAgeHours": 0,
-      "created": 1531238835871
+    "metaAnalysis": {
+      "OPLength_mean": 368.05333333333334,
+      "repliesWithImages_ratio": 0.2885584677419355,
+      "repliesWithText_ratio": 0.9469506048387096,
+      "repliesPerThread_mean": 105.81333333333333,
+      "threadsWithTitles_ratio": 0.7533333333333333,
+      "postLength_mean": 133.11290725252778,
+      "postersPerThread_mean": 40.986666666666665,
+      "postsPerPoster_mean": 2.6060507482108006,
+      "threadAgeHours_mean": 264.8394274888939,
+      "oldestThreadAgeHours": 3592.1541958333387,
+      "created": 1532021587684
     }
   },
   "trash": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 21098.270978499168,
-      "dailyPeakPostsPerMinute_mean": 20.650539145399986,
-      "OPLength_mean": 330.6333333333333,
-      "repliesWithImages_ratio": 0.5249290636400487,
-      "repliesWithText_ratio": 0.722276912386357,
-      "repliesPerThread_mean": 115.12666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 82.78666972845743,
-      "postersPerThread_mean": 29.666666666666668,
-      "postsPerPoster_mean": 3.91438202247191,
-      "threadAgeHours_mean": 47.38567445740476,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239002062
+    "metaAnalysis": {
+      "OPLength_mean": 335.47999999999996,
+      "repliesWithImages_ratio": 0.501948304974672,
+      "repliesWithText_ratio": 0.749772697752955,
+      "repliesPerThread_mean": 102.65333333333332,
+      "threadsWithTitles_ratio": 0,
+      "postLength_mean": 94.55692050424493,
+      "postersPerThread_mean": 27.599999999999998,
+      "postsPerPoster_mean": 3.7555555555555555,
+      "threadAgeHours_mean": 36.76858081481282,
+      "oldestThreadAgeHours": 337.8199516666598,
+      "created": 1532021730928
     }
   },
   "trv": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 487.9403991115138,
-      "dailyPeakPostsPerMinute_mean": 0.5068371978065763,
-      "OPLength_mean": 341.9,
-      "repliesWithImages_ratio": 0.0949430341794923,
-      "repliesWithText_ratio": 0.9930041974815111,
-      "repliesPerThread_mean": 33.35333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 229.07937124005434,
-      "postersPerThread_mean": 19.1,
-      "postsPerPoster_mean": 1.7986038394415358,
-      "threadAgeHours_mean": 132.12305320740325,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239145979
+    "metaAnalysis": {
+      "OPLength_mean": 370.4266666666667,
+      "repliesWithImages_ratio": 0.10095195926499889,
+      "repliesWithText_ratio": 0.9911445649767545,
+      "repliesPerThread_mean": 30.113333333333337,
+      "threadsWithTitles_ratio": 0.5333333333333333,
+      "postLength_mean": 226.26183844011143,
+      "postersPerThread_mean": 19.053333333333335,
+      "postsPerPoster_mean": 1.63296011196641,
+      "threadAgeHours_mean": 132.2803010370392,
+      "oldestThreadAgeHours": 1451.3016530555487,
+      "created": 1532021762921
     }
   },
   "tv": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 39905.569197435514,
-      "dailyPeakPostsPerMinute_mean": 35.98354668839397,
-      "OPLength_mean": 130.36986301369862,
-      "repliesWithImages_ratio": 0.19961779013203615,
-      "repliesWithText_ratio": 0.9541348158443363,
-      "repliesPerThread_mean": 39.42465753424658,
-      "threadsWithTitles_ratio": -6849.308219178082,
-      "postLength_mean": 106.04778041341918,
-      "postersPerThread_mean": 22.78082191780822,
-      "postsPerPoster_mean": 1.7745039085989176,
-      "threadAgeHours_mean": 3.030248750000965,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239297553
+    "metaAnalysis": {
+      "OPLength_mean": 112.49333333333334,
+      "repliesWithImages_ratio": 0.21197161369947548,
+      "repliesWithText_ratio": 0.9620487503856834,
+      "repliesPerThread_mean": 43.21333333333334,
+      "threadsWithTitles_ratio": 0.29333333333333333,
+      "postLength_mean": 95.83021712907117,
+      "postersPerThread_mean": 23.613333333333333,
+      "postsPerPoster_mean": 1.8723884810841331,
+      "threadAgeHours_mean": 2.4150466259272028,
+      "oldestThreadAgeHours": 17.932285277777247,
+      "created": 1532024381211
     }
   },
   "u": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 792.0368402201561,
-      "dailyPeakPostsPerMinute_mean": 0.864399176583015,
-      "OPLength_mean": 250.06802721088437,
-      "repliesWithImages_ratio": 0.3938941764800774,
-      "repliesWithText_ratio": 0.8027504436199387,
-      "repliesPerThread_mean": 168.68027210884352,
-      "threadsWithTitles_ratio": -6802.714285714285,
-      "postLength_mean": 119.7378422803993,
-      "postersPerThread_mean": 59.775510204081634,
-      "postsPerPoster_mean": 2.8386252418345284,
-      "threadAgeHours_mean": 1680.8963443046175,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239322668
-    }
-  },
-  "v": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 110607.38229905274,
-      "dailyPeakPostsPerMinute_mean": 100.77805657168066,
-      "OPLength_mean": 154.54666666666665,
-      "repliesWithImages_ratio": 0.2435408725116476,
-      "repliesWithText_ratio": 0.9571509247494,
-      "repliesPerThread_mean": 94.44,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 114.68887957530036,
-      "postersPerThread_mean": 41.61333333333334,
-      "postsPerPoster_mean": 2.2934956744633133,
-      "threadAgeHours_mean": 2.5473221296301607,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239474136
-    }
-  },
-  "vip": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 23.420602267923428,
-      "dailyPeakPostsPerMinute_mean": 0.03532499983386165,
-      "OPLength_mean": 109.9,
-      "repliesWithImages_ratio": 0.35910918651407364,
-      "repliesWithText_ratio": 0.8038973090009279,
-      "repliesPerThread_mean": 21.553333333333335,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 55.96334614247709,
-      "postersPerThread_mean": 0,
-      "postsPerPoster_mean": null,
-      "threadAgeHours_mean": 1704.9221005185223,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239635629
-    }
-  },
-  "vp": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 6509.390878945765,
-      "dailyPeakPostsPerMinute_mean": 6.455288540243933,
-      "OPLength_mean": 183.92,
-      "repliesWithImages_ratio": 0.3282883874518437,
-      "repliesWithText_ratio": 0.8622729774353329,
-      "repliesPerThread_mean": 48.45333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 99.83256942572122,
-      "postersPerThread_mean": 23.673333333333332,
-      "postsPerPoster_mean": 2.0889890171782595,
-      "threadAgeHours_mean": 29.579959496296787,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239716685
-    }
-  },
-  "vr": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 2009.3030286820212,
-      "dailyPeakPostsPerMinute_mean": 2.021631284000047,
-      "OPLength_mean": 250.26845637583892,
-      "repliesWithImages_ratio": 0.17617359544526803,
-      "repliesWithText_ratio": 0.9744333440756258,
-      "repliesPerThread_mean": 62.47651006711409,
-      "threadsWithTitles_ratio": -6711.402684563758,
-      "postLength_mean": 164.77246775216747,
-      "postersPerThread_mean": 28.758389261744966,
-      "postsPerPoster_mean": 2.2072345390898485,
-      "threadAgeHours_mean": 112.56514294183603,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239764723
-    }
-  },
-  "w": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 134.56705644157685,
-      "dailyPeakPostsPerMinute_mean": 0.174902663458839,
-      "OPLength_mean": 127.08,
-      "repliesWithImages_ratio": 0.7426485499898601,
-      "repliesWithText_ratio": 0.4925978503346177,
-      "repliesPerThread_mean": 65.74666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 34.558729524570516,
-      "postersPerThread_mean": 28.313333333333333,
-      "postsPerPoster_mean": 2.357428773251707,
-      "threadAgeHours_mean": 1548.0888621444485,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239772710
-    }
-  },
-  "wg": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 579.651630170444,
-      "dailyPeakPostsPerMinute_mean": 0.7240767005404619,
-      "OPLength_mean": 107.82191780821918,
-      "repliesWithImages_ratio": 0.7421402969790066,
-      "repliesWithText_ratio": 0.49185867895545315,
-      "repliesPerThread_mean": 66.88356164383562,
-      "threadsWithTitles_ratio": -6849.308219178082,
-      "postLength_mean": 42.276561396428214,
-      "postersPerThread_mean": 29.643835616438356,
-      "postsPerPoster_mean": 2.2899722735674675,
-      "threadAgeHours_mean": 321.00108826674114,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239785736
-    }
-  },
-  "wsg": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 1179.9529530321638,
-      "dailyPeakPostsPerMinute_mean": 1.1794224204267558,
-      "OPLength_mean": 85.36,
-      "repliesWithImages_ratio": 0.41258098607728716,
-      "repliesWithText_ratio": 0.6797316546432017,
-      "repliesPerThread_mean": 145.08666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 52.670515219276226,
-      "postersPerThread_mean": 74.08666666666667,
-      "postsPerPoster_mean": 1.9718347880860254,
-      "threadAgeHours_mean": 824.5414041574077,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239830753
-    }
-  },
-  "wsr": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 515.0037218080986,
-      "dailyPeakPostsPerMinute_mean": 0.5604925896326376,
-      "OPLength_mean": 195.4,
-      "repliesWithImages_ratio": 0.25093167701863356,
-      "repliesWithText_ratio": 0.9167701863354037,
-      "repliesPerThread_mean": 5.366666666666666,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 105.834554973822,
-      "postersPerThread_mean": 3.6666666666666665,
-      "postsPerPoster_mean": 1.7363636363636363,
-      "threadAgeHours_mean": 28.511547370377723,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239855770
-    }
-  },
-  "x": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 6196.218382734774,
-      "dailyPeakPostsPerMinute_mean": 6.091091620757464,
-      "OPLength_mean": 298.76,
-      "repliesWithImages_ratio": 0.22834759901349194,
-      "repliesWithText_ratio": 0.9258668214130277,
-      "repliesPerThread_mean": 45.95333333333333,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 173.96194803350843,
-      "postersPerThread_mean": 20.486666666666668,
-      "postsPerPoster_mean": 2.291897168890335,
-      "threadAgeHours_mean": 21.74394947964084,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239948824
-    }
-  },
-  "y": {
-    "metaAnalysisResult": {
-      "postsPerDay_mean": 383.5304323871877,
-      "dailyPeakPostsPerMinute_mean": 0.46323974878300106,
-      "OPLength_mean": 98.4,
-      "repliesWithImages_ratio": 0.6753935759183438,
-      "repliesWithText_ratio": 0.4777694481287123,
-      "repliesPerThread_mean": 115.60666666666667,
-      "threadsWithTitles_ratio": -6666.66,
-      "postLength_mean": 44.42924932822594,
-      "postersPerThread_mean": 39.446666666666665,
-      "postsPerPoster_mean": 2.956058813587967,
-      "threadAgeHours_mean": 1334.091660692591,
-      "oldestThreadAgeHours": 0,
-      "created": 1531239967850
+    "metaAnalysis": {
+      "OPLength_mean": 234.69333333333333,
+      "repliesWithImages_ratio": 0.41963173812488885,
+      "repliesWithText_ratio": 0.776374310620886,
+      "repliesPerThread_mean": 149.89333333333332,
+      "threadsWithTitles_ratio": 0.9266666666666666,
+      "postLength_mean": 113.08376778298135,
+      "postersPerThread_mean": 54,
+      "postsPerPoster_mean": 2.794320987654321,
+      "threadAgeHours_mean": 1547.0952633870368,
+      "oldestThreadAgeHours": 11447.096661944455,
+      "created": 1532021786960
     }
   }
 }

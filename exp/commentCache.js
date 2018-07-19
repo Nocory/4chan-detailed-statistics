@@ -1,3 +1,4 @@
+const config = require("./config")
 const {commentsDB} = require("./db")
 
 const commentCache = {}
@@ -19,6 +20,7 @@ const create = async (board,snapTime,oldComments) => {
 			.on('end', function () {
 				commentCache[board] = allComments
 				console.timeEnd("commentCache_create")
+				//console.log("commentCache_stringy_length",JSON.stringify(commentCache).length)
 				resolve(allComments)
 			})
 	})
@@ -30,6 +32,5 @@ const get = board => {
 
 module.exports = {
 	create,
-	getSingle,
 	commentCache
 }

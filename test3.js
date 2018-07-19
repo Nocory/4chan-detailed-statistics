@@ -1,12 +1,8 @@
-const cp = require('child_process')
-const n = cp.fork(`${__dirname}/test_child.js`)
+const analyze = require("./analyze")
 
-n.on('message', m => {
-	console.log('PARENT got message:', m)
-})
+const main = async () => {
+	await analyze("p")
+	await analyze("p")
+}
 
-// Causes the child to print: CHILD got message: { hello: 'world' }
-n.send([
-	{ hello: 'world' },
-	{ hello: 'moon' }
-])
+main()

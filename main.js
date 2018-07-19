@@ -29,20 +29,17 @@ axios.interceptors.response.use(function(res) {
 	return Promise.reject(error)
 })
 
-const OPTIONS = {
-	"--from": "3",
-	"--to": "y",
-	"--pages": 999,
-	"--delay": 1000
-}
-for(let i = 2; i < process.argv.length; i+=2){
-	OPTIONS[process.argv[i]] = process.argv[i+1]
-}
-OPTIONS["--pages"] = parseInt(OPTIONS["--pages"])
+const argv = require('yargs')
+	.default('from', "3")
+	.default('to', "y")
+	.default('pages', 999)
+	.default('delay', 1000)
+	.default('regenerate', true)
+	.argv
 
 
 let allBoards = require("./src/config.js").boards
-allBoards = allBoards.slice(allBoards.indexOf(OPTIONS["--from"]),allBoards.indexOf(OPTIONS["--to"]) + 1)
+allBoards = allBoards.slice(allBoards.indexOf(argv.from),allBoards.indexOf(argv.to) + 1)
 //console.log(allBoards)
 if (!allBoards.length){
 	pino.fatal("invalid boards selected")
@@ -52,10 +49,35 @@ if (!allBoards.length){
 // setup done //
 ////////////////
 
-const sleep = async (ms = Math.max(OPTIONS["--delay"] - (Date.now() - lastRequest),0)) => {
+const sleep = async (ms = Math.max(argv.delay - (Date.now() - lastRequest),0)) => {
 	await new Promise(resolve => {
 		setTimeout(resolve,ms)
 	})
+}
+
+const boardWeight = {}
+const determineNextBoard = () => {
+	const customWeight = {
+		pol: 2,
+		v: 2,
+		vg: 1.5,
+		b: 2,
+		sp: 2,
+		a: 1.5,
+		int: 1.5,
+		tv: 1.5,
+		r9k: 1.5,
+		mu: 1.2,
+		biz: 1.2,
+
+	}
+	for(let board in boardWeight){
+		boardWeight[board] += customWeight[board] || 1
+	}
+	const winnerBoard = Object.entries(boardWeight).reduce((acc,val) => acc = val[1] > acc[1] ? val : acc,[argv.from, 0]) // returns [board,value]
+	boardWeight[winnerBoard[0]] = 0
+	console.log(`DEBUG: next board ${winnerBoard[0]}, weight: ${winnerBoard[1]}`)
+	return winnerBoard[0]
 }
 
 const getThread = async (board,threadNum,attempt = 1) => {
@@ -77,7 +99,7 @@ const getThread = async (board,threadNum,attempt = 1) => {
 const handleCatalog = async (board,catalog) => {
 	/* eslint-disable no-await-in-loop */
 	const boardDB = db.getBoardDB(board)
-	catalog = catalog.slice(0,OPTIONS["--pages"])
+	catalog = catalog.slice(0,argv.pages)
 		
 	const newThreads = {}
 	let threadCount = [0,catalog.reduce((acc,val) => acc + val.threads.length,0)] //FIXME: page 11 usually contains only 1 or 2 threads
@@ -120,13 +142,9 @@ const handleCatalog = async (board,catalog) => {
 	}
 }
 
-const getCatalog = async index => {
-	if(index >= allBoards.length){
-		cycleStartTime = Date.now()
-		bytesLoaded = 0
-		index = 0
-	}
-	const board = allBoards[index]
+const getCatalog = async board => {
+	cycleStartTime = Date.now()
+	bytesLoaded = 0
 	try{
 		await sleep()
 		lastRequest = Date.now()
@@ -135,47 +153,43 @@ const getCatalog = async index => {
 		pino.debug(`/${board}/ catalog loaded | ${getKBs()}`)
 
 		await handleCatalog(board,res.data)
-		getCatalog(index + 1)
+		getCatalog(determineNextBoard())
 	} catch(err){
-		pino.error(err.message,"Retrying in 5 seconds . . .")
+		pino.error(err.message,`Retrying /${board}/ catalog in 5 seconds . . .`)
 		await sleep(5000)
-		getCatalog(index)
+		getCatalog(board)
 	}
 }
 
+
+
 const main = async () => {
+	/*
 	const convertOldMetadata = require("./src/convertOldMetadata")
 	pino.info("⏳   Starting old metaData conversion")
 	for(let board of allBoards){
 		await convertOldMetadata(board)
 	}
+	*/
 	
-	const regenerate = require("./regenerate")
-	pino.info("⏳   Starting regeneration")
-	await regenerate()
+	if(argv.regenerate){
+		pino.info("⏳   Starting regeneration")
+		await require("./regenerate")()
+	}
 	
 	pino.info("⏳   Checking for oldest raw data. This might take a few seconds.")
-	
-	let oldestBoard = allBoards[0]
-	let oldestTime = Date.now()
-	
+	const now = Date.now()
 	for(let board of allBoards){
 		const file = `rawData/${board}.json`
 		if(!fs.existsSync(file)){
-			oldestBoard = board
-			break
+			boardWeight[board] = 999999
+			continue
 		}
 		const boardDB = db.getBoardDB(board)
-		const snapTime = boardDB.get("snapTime").value() || 0
-		
-		if(snapTime < oldestTime){
-			oldestBoard = board
-			oldestTime = snapTime
-		}
+		boardWeight[board] = (now - (boardDB.get("snapTime").value() || 0)) / (1000 * 60)
 	}
-	const oldestIndex = allBoards.indexOf(oldestBoard)
-	pino.info(`Oldest board is ${oldestBoard}. Age ${((Date.now() - oldestTime) / (1000 * 60 * 60)).toFixed(2)} hours. Starting from index ${oldestIndex}`)
-	getCatalog(oldestIndex)
+	
+	getCatalog(determineNextBoard())
 }
 
 main()

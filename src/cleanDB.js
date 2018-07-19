@@ -1,11 +1,25 @@
 const {commentsDB} = require("./db")
 const config = require("./config")
 
-const main = async (board,dryRun = false) => {
+const argv = require('yargs')
+	.default('board', "a")
+	.default('dry-run', true)
+	.default('clean-all', false)
+	.argv
+
+const main = async (board = argv.board,snapTime = Date.now(),dryRun = argv.dryRun) => {
+	if(argv.cleanAll){
+		console.log("CLEANING DATABASES FOR ALL BOARDS !!!")
+		argv.cleanAll = false
+		for(let board of config.boards){
+			await main(board,false)
+		}
+	}
+
 	const dbOps = []
 	commentsDB.createKeyStream({
 		gt: [board,0,0],
-		lte: [board,Date.now() / 1000 - config.commentsSaveSeconds,"~"]
+		lt: [board,snapTime / 1000 - config.commentsSaveSeconds,"~"]
 	})
 		.on('data', function (data) {
 			dbOps.push({ type: 'del', key: data })
@@ -18,7 +32,12 @@ const main = async (board,dryRun = false) => {
 				console.log(`/${board}/ comment DB cleanup *DRY RUN* would have removed ${dbOps.length} comments.`)
 			}else{
 				console.log(`/${board}/ comment DB cleanup. Removing ${dbOps.length} comments.`)
-				commentsDB.batch(dbOps)
+				try{
+					commentsDB.batch(dbOps)
+				}catch(err){
+					console.error("error while cleaning",board)
+					console.error(err)
+				}
 			}
 		})
 }

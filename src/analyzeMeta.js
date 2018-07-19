@@ -1,8 +1,6 @@
-const ss = require('simple-statistics')
-
 const {metaDataDB} = require("./db")
 
-const main = async (board,snapTime,chanstatsData) => {
+const main = async (board,snapTime) => {
 	console.time("analyzeMeta")
 
 	const metaDataSum = {
@@ -31,7 +29,10 @@ const main = async (board,snapTime,chanstatsData) => {
 			.on('data', function (data) {
 				//console.log("analyzeMeta onData")
 				//console.log(data.duration,data.duration / (1000 * 60 * 60))
-				if(hoursLeft <= 0) return
+				if(hoursLeft <= 0){
+					console.warn(`hoursLeft <= 0 while analyzeMeta for ${board}. THIS HSOULD NOT HAPPEN`)
+					return
+				}
 				let hoursCovered = Math.min(hoursLeft,data.duration / (1000 * 60 * 60))
 				hoursLeft -= hoursCovered
 				//console.log(hoursCovered,hoursLeft)
@@ -53,9 +54,6 @@ const main = async (board,snapTime,chanstatsData) => {
 			})
 			.on('end', function () {
 				const metaAnalysisResult = {
-					postsPerDay_mean: chanstatsData.avgPostsPerDay,
-					dailyPeakPostsPerMinute_mean: chanstatsData.topPPM,
-
 					OPLength_mean: metaDataSum.totalOPLength / metaDataSum.totalThreads,
 					repliesWithImages_ratio: metaDataSum.totalRepliesWithImages / metaDataSum.totalReplies,
 					repliesWithText_ratio: metaDataSum.totalRepliesWithText / metaDataSum.totalReplies,
@@ -66,6 +64,7 @@ const main = async (board,snapTime,chanstatsData) => {
 					postsPerPoster_mean: metaDataSum.totalPosts / metaDataSum.totalPostersPerThread,
 					threadAgeHours_mean: metaDataSum.totalThreadAgeHours / metaDataSum.totalThreads,
 					oldestThreadAgeHours: metaDataSum.oldestThreadAgeHours,
+					created: snapTime
 				}
 				
 				console.timeEnd("analyzeMeta")
