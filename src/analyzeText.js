@@ -1,6 +1,6 @@
 const config = require("./config")
 const _ = require("lodash")
-const {visibleCache,textAnalysisResultCache} = require("./db")
+const {visibleCache,textAnalysisResultCache,invertedPostIndex} = require("./db")
 
 const analyzeSingle = (board,word) => {
 	//console.log("Text analyzeSingle",board)
@@ -77,7 +77,63 @@ const analyzeAll = async word => {
 	return finalResult
 }
 
+const findMentions = async word => {
+	console.time("findMentions")
+	const boards = config.boards
+
+	const mentions = []
+	
+	for(let board of boards){
+		await new Promise(resolve => setTimeout(resolve,2))
+		visibleCache[board].forEach((val,key) => {
+			if(val[1].includes(word) && mentions.length < 1000){
+				mentions.push([new Date(val[0] * 1000),board,key,val[1]])
+			}
+		})
+		if(mentions.length >= 1000) break
+	}
+	console.timeEnd("findMentions")
+	return mentions.sort((a,b) => b[0] - a[0])
+}
+
+const analyzeTokens = async word => {
+	console.time("analyzeTokens")
+
+	const result = {}
+	for(let board of config.boards){
+		result[board] = new Set()
+	}
+
+	let matchedTokens = 0
+
+	for(let token of invertedPostIndex){
+		if(token[0].includes(word)){
+			matchedTokens++
+			//console.log("matched token:",token[0])
+			for(let board of token[1]){
+				//console.log(token[0],board[1])
+				for(let post of board[1]){
+					//console.log(result[board[0]])
+					//console.log(board[0])
+					result[board[0]].add(post)
+				}
+			}
+		}
+	}
+
+	for(let board in result){
+		result[board] = result[board].size
+	}
+
+	console.timeEnd("analyzeTokens")
+	console.log("searched through",invertedPostIndex.size,"tokens")
+	console.log("of those tokens",matchedTokens,"matched")
+	return result
+}
+
 module.exports = {
 	analyzeSingle,
-	analyzeAll
+	analyzeAll,
+	findMentions,
+	analyzeTokens
 }

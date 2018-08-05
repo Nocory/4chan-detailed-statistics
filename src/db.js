@@ -1,46 +1,79 @@
+const config = require("./config")
+// LEVEL
 const sub = require('subleveldown')
 const db = require('level')(__dirname + "/../database", {
-	keyEncoding: require("charwise"),
-	valueEncoding: "json",
-	cacheSize: 256 * 1024 * 1024
+	cacheSize: 1024 * 1024 * 256
 })
-const commentsDB = sub(db,"com",{
+
+// posts in postNum order
+const postsDB = sub(db,"post",{
 	keyEncoding: require("charwise"),
+	valueEncoding: "json"
+})
+
+// threads in postNum order
+const threadsDB = sub(db,"thread",{
+	keyEncoding: require("charwise"),
+	valueEncoding: "json"
+})
+
+// threads in postNum order
+const imagesDB = require('level')(__dirname + "/../database_images", {
+	keyEncoding: "utf8",
 	valueEncoding: "utf8",
-	cacheSize: 256 * 1024 * 1024
+	cacheSize: 1024 * 1024 * 128
 })
-const metaDataDB = sub(db,"metaData",{keyEncoding: require("charwise"),valueEncoding: "json"})
 
-const fs = require('fs')
-if (!fs.existsSync(__dirname + "/../finalResults")) fs.mkdirSync(__dirname + "/../finalResults")
-if (!fs.existsSync(__dirname + "/../rawData")) fs.mkdirSync(__dirname + "/../rawData")
+// board meta (visibleThreads, boardWeight)
+const metaDB = sub(db,"META",{
+	keyEncoding: "utf8",
+	valueEncoding: "json"
+})
 
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+// board meta (visibleThreads, boardWeight)
+/*
+const tokenDB = sub(db,"token",{
+	keyEncoding: require("charwise"),
+	valueEncoding: "json"
+})
+*/
+const tokenDB = require('level')(__dirname + "/../database_tokens", {
+	cacheSize: 1024 * 1024 * 8,
+	keyEncoding: require("charwise"),
+	valueEncoding: "json"
+})
 
-const lowFinalResultsDB = low(new FileSync(__dirname + "/../finalResults/db.json"))
-const low4statsMentionsDB = low(new FileSync(__dirname + "/../finalResults/4statsMentions.json"))
-low4statsMentionsDB.defaults({ chronological: [], boards: {}}).write()
-const getBoardDB = board => {
-	return low(new FileSync(__dirname + `/../rawData/${board}.json`))
+const boardStats = {}
+for(let board of config.boards){
+	boardStats[board] = {
+		postCount: 0,
+		OPCount: 0,
+
+		repliesWithText: 0,
+		repliesWithImages: 0,
+		threadsWithTitles: 0,
+
+		postLength: 0,
+		OPLength: 0,
+		threadReplies_sum: 0,
+		uniqueIPs_sum: 0,
+		timeOfDaySeconds_sum: 0
+	}
 }
 
-const visibleCache = {}
-for(let board of require("./config").boards){
-	visibleCache[board] = new Map()
-}
-
-var LRU = require("lru-cache")
+const LRU = require("lru-cache")
 const textAnalysisResultCache = LRU({
 	max: 100
 })
 
+const invertedPostIndex = new Map()
+
 module.exports = {
-	commentsDB,
-	metaDataDB,
-	lowFinalResultsDB,
-	low4statsMentionsDB,
-	getBoardDB,
-	visibleCache,
-	textAnalysisResultCache
+	postsDB,
+	threadsDB,
+	metaDB,
+	tokenDB,
+	textAnalysisResultCache,
+	invertedPostIndex,
+	imagesDB
 }

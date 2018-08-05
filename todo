@@ -1,6 +1,7 @@
-check if averager actually uses everything in the last 24 h
+Needs to check if post text changed. (Ban message)
+Needs to check if post was deleted.
+Needs to check thread that got pushed off the board into 4chan archive one last time.
 
-clear old meta data (meta data , not meta data analysis results)
-clear old comments
+when going through catalog, check visible and then also visibles from last check that have been pushed off
 
-skip board catalogs if they 502 or timeout and reduce the board weight to 75% or so instead
+put tokens and stats in its own DB, so cache doesn't have to hold useless info

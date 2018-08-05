@@ -2,9 +2,13 @@ const config = require("./config")
 const Entities = require('html-entities').Html5Entities
 const entities = new Entities()
 
-const {commentsDB,metaDataDB,low4statsMentionsDB,visibleCache,textAnalysisResultCache} = require("./db")
+const {commentsDB,metaDataDB,low4statsMentionsDB,visibleCache,textAnalysisResultCache,allTokens,reducedTokenSet} = require("./db")
 
 let postCounter = 0
+
+const natural = require('natural')
+const tokenizer = new natural.WordTokenizer()
+const treeTokenizer = new natural.TreebankWordTokenizer()
 
 //const main = async (board,rawData,snapTime,duration,writeToDB = true) => {
 const main = async (board,rawData,writeToDB = true) => {	
@@ -102,7 +106,9 @@ const main = async (board,rawData,writeToDB = true) => {
 			}
 			//console.log(post.com)
 			newCache.set(post.no,[post.time,post.com])
-			if(cachedPost === undefined && post.time > commentSaveCutOff) commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
+			if(cachedPost === undefined && post.time > commentSaveCutOff){
+				commentOps.push({type: 'put', key: [board,post.time,post.no], value: post.com})
+			}
 		}
 	}
 

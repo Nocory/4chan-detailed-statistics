@@ -1,4 +1,5 @@
 const {metaDataDB} = require("./db")
+const config = require("./config")
 
 const main = async (board,snapTime) => {
 	console.time("analyzeMeta")
@@ -17,12 +18,13 @@ const main = async (board,snapTime) => {
 		totalPostersPerThread: 0 // just the sum of unique per thread
 	}
 
-	let hoursLeft = 24
+	let hoursLeft = 24 * 7
 
 	return new Promise((resolve,reject)=>{
 		//console.log("snapTime",snapTime)
 		metaDataDB.createValueStream({
-			gt: [board,snapTime - 1000 * 60 * 60 * 24],
+			//gt: [board,snapTime - 1000 * 60 * 60 * 24],
+			gt: [board,snapTime - config.metaAnalyzeMS],
 			lte: [board,snapTime],
 			reverse: true //TODO: instead of reverse query, reverse the result for better performance
 		})
